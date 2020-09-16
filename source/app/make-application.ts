@@ -50,7 +50,6 @@ export function makeApplication({storage, update}: {
 		const changed = stateHash !== previousStateHash
 		previousStateHash = stateHash
 		if (changed) {
-			save()
 			update({
 				actions,
 				state: Object.freeze(copy(state)),
@@ -93,6 +92,7 @@ export function makeApplication({storage, update}: {
 	for (const [key, action] of Object.entries(actions)) {
 		actions[key] = (...args: any[]) => {
 			action.apply(actions, args)
+			save()
 			triggerUpdate()
 		}
 	}
@@ -104,6 +104,7 @@ export function makeApplication({storage, update}: {
 		refresh,
 		setState(newState: AppState) {
 			state = newState
+			save()
 			triggerUpdate()
 		},
 	}
