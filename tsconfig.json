@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"rootDir": "source",
+		"outDir": "dist",
+		"target": "esnext",
+		"lib": ["esnext", "dom"],
+		"module": "esnext",
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"declaration": true
+	},
+	"include": [
+		"source/**/*.ts",
+		"source/**/*.js",
+	],
+	"exclude": [
+		"jwt/**/*"
+	]
+}

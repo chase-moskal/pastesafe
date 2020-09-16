@@ -1,0 +1,6 @@
+
+/dist*
+/*.pem
+/coverage
+/node_modules
+/*.tgz
