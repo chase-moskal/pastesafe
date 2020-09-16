@@ -1,8 +1,58 @@
 
 @charset "utf-8";
 
+/*
+========================================================================
+:: LAYOUT FUNDAMENTALS :::::::::::::::::::::::::::::::::::::::::::::::::
+========================================================================
+*/
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+}
+
+html, body {
+	font-size: 16px;
+	min-height: 100%;
+}
+
+html {
+	padding-top: 2em;
+}
+
+body {
+	width: 90%;
+	max-width: 1600px;
+	margin: auto;
+	transition: all 1s ease;
+}
+
+body > * {
+	padding: 0.5em 1em;
+}
+
+@media (max-width: 1000px) {
+	body {
+		width: 100%;
+	}
+}
+
+/*
+========================================================================
+:: THEME AND COLORS ::::::::::::::::::::::::::::::::::::::::::::::::::::
+========================================================================
+*/
+
+html {
+	color: #aaff92;
+	background: #013a0d;
+	background: linear-gradient(-120deg, #496d51, #013a0d);
+	font-family: sans-serif;
+}
+
+body {
+	background: rgba(0,0,0, 0.5);
+	box-shadow: 3px 6px 12px rgba(0,0,0, 0.15);
 }
