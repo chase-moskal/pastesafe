@@ -23,19 +23,21 @@
 		</main>
 		<footer class=sitefooter>
 			<div class=stdcontent>
-				<h2>securely communicate via encrypted links</h2>
-				<p>pastesafe allows you to securely communicate sensitive data across any open medium, like youtube comments, or anything else</p>
-				<p>pastesafe is</p>
-				<ul>
-					<li>100% open source <a href="https://github.com/chase-moskal/pastesafe">pastesafe on github</a></li>
-					<li>100% clientside-only operation (no servers)</li>
-					<li>RSA-OAEP 4096 encryption</li>
-				</ul>
-				<p>all pastesafe communications are invite-based</p>
+				<h2>securely communicate over any medium via encrypted links</h2>
+				<h4>all pastesafe communications are initiated by an invite</h4>
 				<ol>
-					<li>the person who wants to <em>receive</em> data initiates by sending an invite-link</li>
-					<li>the link allows the opener to encrypt a message in a link they can send back</li>
+					<li>bob wants secret info from alice. so, bob creates a pastesafe session and sends her the invite link</li>
+					<li>alice clicks the link, and is prompted to enter her secret info</li>
+					<li>pastesafe packs the secret info into an encrypted link which only bob can decode</li>
+					<li>alice sends back this response link, and bob decodes it</li>
 				</ol>
+				<h4>pastesafe is</h4>
+				<ul>
+					<li>public key cryptography</li>
+					<li>RSA-OAEP 4096 encryption</li>
+					<li>100% open source <a href="https://github.com/chase-moskal/pastesafe">on github</a></li>
+					<li>100% serverless, clientside-only webcrypto</li>
+				</ul>
 			</div>
 		</footer>
 	</body>

@@ -16,6 +16,7 @@ const styles = css`
 }
 
 .profile {
+	max-width: 640px;
 	padding: 0.5em;
 	background: #00000066;
 	border: 1px solid #ffffff33;
@@ -89,7 +90,7 @@ export class PastesafeApp extends Component {
 						type=text
 						placeholder="profile name"
 						/>
-					<button @click=${this._handleAddProfile}>+ add profile</button>
+					<button @click=${this._handleAddProfile}>generate profile</button>
 				</div>
 				${profiles.length < 1 ? null : html`
 					<button class=destroybutton @click=${this._handleDestroyProfiles}>destroy all profiles</button>
