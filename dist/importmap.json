@@ -1,0 +1,23 @@
+
+{
+	"imports": {
+		"@adobe/lit-mobx/": "https://cdn.jsdelivr.net/npm/@adobe/lit-mobx@1.0.0/",
+		"@adobe/lit-mobx": "https://cdn.jsdelivr.net/npm/@adobe/lit-mobx@1.0.0/lit-mobx.js",
+		"cynic/": "https://cdn.jsdelivr.net/npm/cynic@0.1.0-dev.9/",
+		"cynic": "https://cdn.jsdelivr.net/npm/cynic@0.1.0-dev.9/dist/cynic.js",
+		"lit-element/": "https://cdn.jsdelivr.net/npm/lit-element@2.4.0/",
+		"lit-element": "https://cdn.jsdelivr.net/npm/lit-element@2.4.0/lit-element.js",
+		"lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@1.3.0/",
+		"lit-html": "https://cdn.jsdelivr.net/npm/lit-html@1.3.0/lit-html.js",
+		"lodash-es/": "https://cdn.jsdelivr.net/npm/lodash-es@4.17.15/",
+		"lodash-es": "https://cdn.jsdelivr.net/npm/lodash-es@4.17.15/lodash.js",
+		"menutown/": "https://cdn.jsdelivr.net/npm/menutown@0.0.1/",
+		"menutown": "https://cdn.jsdelivr.net/npm/menutown@0.0.1/dist/register-all.js",
+		"metalshop/": "https://cdn.jsdelivr.net/npm/metalshop@0.0.0-dev.59/",
+		"mobx/": "https://cdn.jsdelivr.net/npm/mobx@5.15.7/",
+		"mobx": "https://cdn.jsdelivr.net/npm/mobx@5.15.7/lib/mobx.module.js",
+		"mobx-lit-element/": "https://cdn.jsdelivr.net/npm/mobx-lit-element@0.1.2/",
+		"mobx-lit-element": "https://cdn.jsdelivr.net/npm/mobx-lit-element@0.1.2/mobx-lit-element.js"
+	}
+}
+
