@@ -57,6 +57,7 @@ body {
 
 .stdcontent ul,
 .stdcontent ol {
+	margin-top: 0;
 	padding-left: 1.5em;
 }
 
