@@ -26,6 +26,28 @@ const styles = css`
 	margin-top: 0.5em;
 }
 
+.none {
+	display: none;
+}
+
+.bar {
+	display: flex;
+	flex-direction: row;
+}
+
+.bar > * + * {
+	margin-left: 0.5em;
+}
+
+.bar button.destroybutton {
+	background: #3b3e10;
+}
+
+.bar button.destroybutton:hover,
+.bar button.destroybutton:focus {
+	background: maroon;
+}
+
 `
 
  @mixinStyles(styles)
@@ -53,7 +75,6 @@ export class PastesafeApp extends Component {
 	render() {
 		const {state} = this.appUpdate
 		return html`
-			<h2>profile dashboard</h2>
 			<div class=profilelist>
 				${state.profiles.map(profile => html`
 					<div class=profile>
@@ -69,7 +90,7 @@ export class PastesafeApp extends Component {
 					<p class=none>no profiles loaded</p>
 				`}
 			</div>
-			<div class=bar>
+			<div class=bar data-coolinputs>
 				<div class=inputblob>
 					<input
 						@change=${this._handleInputBlobChange}
@@ -80,7 +101,7 @@ export class PastesafeApp extends Component {
 						/>
 					<button @click=${this._handleAddProfile}>+ add profile</button>
 				</div>
-				<button @click=${this._handleDestroyProfiles}>destroy all profiles</button>
+				<button class=destroybutton @click=${this._handleDestroyProfiles}>destroy all profiles</button>
 			</div>
 		`
 	}

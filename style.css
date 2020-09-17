@@ -76,6 +76,11 @@ html {
 	background: linear-gradient(-120deg, #496d51, #013a0d);
 }
 
+.title > h1 {
+	color: white;
+	text-shadow: 0 0 10px #ffffff66;
+}
+
 .sitemain, .sitefooter {
 	background: rgba(0,0,0, 0.5);
 	box-shadow: 3px 6px 12px rgba(0,0,0, 0.15);
