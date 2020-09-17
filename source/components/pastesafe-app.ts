@@ -2,7 +2,7 @@
 import {formatDate} from "metalshop/dist/metalfront/toolbox/dates.js"
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
-import {ProfileDraft} from "../types.js"
+import {Profile, ProfileDraft} from "../types.js"
 import {Component, css, html, property} from "../app/component.js"
 
 const styles = css`
@@ -50,6 +50,10 @@ const styles = css`
 
 `
 
+function sortProfiles(profiles: Profile[]) {
+	return [...profiles].sort((a, b) => a.created > b.created ? -1 : 1)
+}
+
  @mixinStyles(styles)
 export class PastesafeApp extends Component {
 
@@ -74,22 +78,8 @@ export class PastesafeApp extends Component {
 
 	render() {
 		const {state} = this.appUpdate
+		const profiles = sortProfiles(state.profiles)
 		return html`
-			<div class=profilelist>
-				${state.profiles.map(profile => html`
-					<div class=profile>
-						<h3>${profile.label}</h3>
-						<p><strong>profile id</strong> ${profile.id}</p>
-						<p><strong>created</strong> ${(() => {
-							const {datestring, timestring} = formatDate(profile.created)
-							return `${datestring} ${timestring}`
-						})()}</p>
-					</div>
-				`)}
-				${state.profiles.length > 0 ? null : html`
-					<p class=none>no profiles loaded</p>
-				`}
-			</div>
 			<div class=bar data-coolinputs>
 				<div class=inputblob>
 					<input
@@ -101,7 +91,24 @@ export class PastesafeApp extends Component {
 						/>
 					<button @click=${this._handleAddProfile}>+ add profile</button>
 				</div>
-				<button class=destroybutton @click=${this._handleDestroyProfiles}>destroy all profiles</button>
+				${profiles.length < 1 ? null : html`
+					<button class=destroybutton @click=${this._handleDestroyProfiles}>destroy all profiles</button>
+				`}
+			</div>
+			<div class=profilelist>
+				${profiles.map(profile => html`
+					<div class=profile>
+						<h3>${profile.label}</h3>
+						<p><strong>profile id</strong> ${profile.id}</p>
+						<p title=${profile.created}><strong>created</strong> ${(() => {
+							const {datestring, timestring} = formatDate(profile.created)
+							return `${datestring} ${timestring}`
+						})()}</p>
+					</div>
+				`)}
+				${profiles.length > 0 ? null : html`
+					<p class=none>no profiles loaded</p>
+				`}
 			</div>
 		`
 	}

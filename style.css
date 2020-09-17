@@ -32,12 +32,12 @@ body {
 }
 
 .sitemain {
-	padding-bottom: 2em;
+	min-height: 60px;
 }
 
 .sitefooter {
 	padding-top: 1em;
-	padding-bottom: 3em;
+	padding-bottom: 2em;
 }
 
 .sitefooter > div {
