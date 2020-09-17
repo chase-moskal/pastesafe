@@ -34,3 +34,15 @@ export interface AppUpdate {
 		deleteSession(profileId: string, sessionId: string): void
 	}
 }
+
+export interface SimpleStorage {
+	clear: typeof localStorage.clear
+	getItem: typeof localStorage.getItem
+	setItem: typeof localStorage.setItem
+	removeItem: typeof localStorage.removeItem
+}
+
+export interface AppModelParams {
+	storage: SimpleStorage
+	onUpdate: (update: AppUpdate) => void
+}
