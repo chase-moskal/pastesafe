@@ -1,8 +1,8 @@
 
-import {generateId} from "metalshop/dist/toolbox/generate-id.js"
 import {makeJsonStorage} from "metalshop/dist/toolbox/json-storage.js"
 
 import {copy} from "../toolbox/copy.js"
+import {randex} from "../toolbox/randex.js"
 import {hashAny} from "../toolbox/hash.js"
 import {AppState, ProfileDraft, SessionDraft, Profile, AppModelParams} from "../types.js"
 
@@ -18,19 +18,22 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	}
 
 	const actions = {
-		createProfile(draft: ProfileDraft) {
+		async createProfile(draft: ProfileDraft) {
 			const profile: Profile = {
-				id: generateId(),
+				id: randex(),
 				sessions: [],
 				label: draft.label,
 			}
 			state.profiles.push(profile)
 		},
-		deleteProfile(profileId: string) {
+		async deleteProfile(profileId: string) {
 			state.profiles = state.profiles.filter(({id}) => id !== profileId)
 		},
-		createSession(draft: SessionDraft) {},
-		deleteSession(profileId: string, sessionId: string) {},
+		async clearProfiles() {
+			state.profiles = []
+		},
+		async createSession(draft: SessionDraft) {},
+		async deleteSession(profileId: string, sessionId: string) {},
 	}
 
 	//

@@ -34,5 +34,5 @@ void async function main() {
 		PastesafeApp,
 	})))
 
-	app.start()
+	await app.start()
 }()
