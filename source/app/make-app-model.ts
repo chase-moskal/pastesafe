@@ -43,12 +43,10 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	let previousStateHash: number
 
 	function triggerUpdate() {
-		console.debug("triggerUpdate")
 		const stateHash = hashAny(state)
 		const changed = stateHash !== previousStateHash
 		previousStateHash = stateHash
 		if (changed) {
-			console.debug("state change update")
 			onUpdate({
 				actions,
 				state: Object.freeze(copy(state)),
@@ -63,17 +61,14 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	const jsonStore = makeJsonStorage(storage)
 
 	function save() {
-		console.debug("save")
 		jsonStore.write("pastesafe_profiles", state.profiles)
 	}
 
 	function load() {
-		console.debug("load")
 		state.profiles = jsonStore.read("pastesafe_profiles") || []
 	}
 
 	function refresh() {
-		console.debug("refresh")
 		load()
 		triggerUpdate()
 	}
@@ -94,11 +89,5 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 		actions,
 		refresh,
 		start: refresh,
-		setState(newState: AppState) {
-			console.debug("set state")
-			state = newState
-			save()
-			triggerUpdate()
-		},
 	}
 }

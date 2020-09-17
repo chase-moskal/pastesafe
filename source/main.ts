@@ -15,7 +15,7 @@ import {ConstructorFor} from "metalshop/dist/metalfront/types.js"
 
 void async function main() {
 	const appUpdate = pubsub<AppUpdateListener>()
-	appUpdate.subscribe(update => console.log(`[${Date.now()}] app update`, update))
+	// appUpdate.subscribe(update => console.log(`[${Date.now()}] app update`, update))
 
 	const app = makeAppModel({
 		storage: localStorage,
@@ -34,5 +34,5 @@ void async function main() {
 		PastesafeApp,
 	})))
 
-	await app.start()
+	app.start()
 }()
