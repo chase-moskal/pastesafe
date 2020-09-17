@@ -1,7 +1,20 @@
 
+import {makeAppModel} from "./app/make-app-model.js"
+import {Subscribe} from "metalshop/dist/toolbox/pubsub.js"
+
+export type AppModel = ReturnType<typeof makeAppModel>
+
 export interface AppState {
 	invite: {}
 	profiles: Profile[]
+}
+
+export interface AppUpdateListener {
+	(update: AppUpdate): void
+}
+
+export interface AppShare {
+	onUpdate: Subscribe<AppUpdateListener>
 }
 
 export interface ProfileDraft {
@@ -27,15 +40,10 @@ export interface Session {
 
 export interface AppUpdate {
 	state: AppState
-	actions: {
-		createProfile(draft: ProfileDraft): void
-		deleteProfile(profileId: string): void
-		createSession(draft: SessionDraft): void
-		deleteSession(profileId: string, sessionId: string): void
-	}
+	actions: AppModel["actions"]
 }
 
-export interface SimpleStorage {
+export interface MinimalStorage {
 	clear: typeof localStorage.clear
 	getItem: typeof localStorage.getItem
 	setItem: typeof localStorage.setItem
@@ -43,6 +51,6 @@ export interface SimpleStorage {
 }
 
 export interface AppModelParams {
-	storage: SimpleStorage
+	storage: MinimalStorage
 	onUpdate: (update: AppUpdate) => void
 }

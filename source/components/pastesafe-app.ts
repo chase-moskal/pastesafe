@@ -1,6 +1,5 @@
 
-
-import {LitElement, css, html} from "lit-element"
+import {Component, css, html} from "../app/component.js"
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
 const styles = css`
@@ -12,8 +11,10 @@ const styles = css`
 `
 
  @mixinStyles(styles)
-export class PastesafeApp extends LitElement {
+export class PastesafeApp extends Component {
 	render() {
+		const {share, appUpdate} = this
+		console.log("render!", {share, appUpdate})
 		return html`
 			<h2>pastesafe dashboard</h2>
 		`
