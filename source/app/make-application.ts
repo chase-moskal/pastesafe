@@ -12,9 +12,9 @@ function initializeAppState(): AppState {
 	}
 }
 
-export function makeApplication({storage, update}: {
+export function makeApplication({storage, onUpdate}: {
 		storage: Storage
-		update: (up: AppUpdate) => void
+		onUpdate: (update: AppUpdate) => void
 	}) {
 
 	//
@@ -50,7 +50,7 @@ export function makeApplication({storage, update}: {
 		const changed = stateHash !== previousStateHash
 		previousStateHash = stateHash
 		if (changed) {
-			update({
+			onUpdate({
 				actions,
 				state: Object.freeze(copy(state)),
 			})
@@ -97,11 +97,10 @@ export function makeApplication({storage, update}: {
 		}
 	}
 
-	refresh()
-
 	return {
 		actions,
 		refresh,
+		start: refresh,
 		setState(newState: AppState) {
 			state = newState
 			save()

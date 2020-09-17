@@ -10,16 +10,13 @@ import {theme} from "./theme.js"
 void async function main() {
 	const app = makeApplication({
 		storage: localStorage,
-		update(up) {
-			console.log(up)
-		},
+		onUpdate: update => console.log("app update", update)
 	})
 
 	registerComponents(themeComponents(theme, {
 		PastesafeApp
 	}))
 
+	app.start()
 	app.actions.createProfile({label: "hello"})
-	console.log(app)
-
 }()
