@@ -24,6 +24,7 @@ export interface ProfileDraft {
 export interface Profile {
 	id: string
 	label: string
+	created: number
 	sessions: Session[]
 }
 

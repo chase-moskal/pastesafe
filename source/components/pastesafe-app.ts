@@ -1,8 +1,9 @@
 
-import {Component, css, html} from "../app/component.js"
+import {formatDate} from "metalshop/dist/metalfront/toolbox/dates.js"
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
 import {ProfileDraft} from "../types.js"
+import {Component, css, html, property} from "../app/component.js"
 
 const styles = css`
 
@@ -29,6 +30,8 @@ const styles = css`
 
  @mixinStyles(styles)
 export class PastesafeApp extends Component {
+
+	 @property({type: Object, reflect: false})
 	private _profileDraft: ProfileDraft = {label: ""}
 
 	private _handleInputBlobChange({target}: {target: HTMLInputElement}) {
@@ -38,7 +41,9 @@ export class PastesafeApp extends Component {
 	}
 
 	private async _handleAddProfile() {
-		await this.appUpdate.actions.createProfile(this._profileDraft)
+		const {_profileDraft} = this
+		this._profileDraft = {label: ""}
+		await this.appUpdate.actions.createProfile(_profileDraft)
 	}
 
 	private async _handleDestroyProfiles() {
@@ -46,17 +51,21 @@ export class PastesafeApp extends Component {
 	}
 
 	render() {
-		const {share, appUpdate} = this
+		const {state} = this.appUpdate
 		return html`
 			<h2>profile dashboard</h2>
 			<div class=profilelist>
-				${appUpdate.state.profiles.map(profile => html`
+				${state.profiles.map(profile => html`
 					<div class=profile>
 						<h3>${profile.label}</h3>
 						<p><strong>profile id</strong> ${profile.id}</p>
+						<p><strong>created</strong> ${(() => {
+							const {datestring, timestring} = formatDate(profile.created)
+							return `${datestring} ${timestring}`
+						})()}</p>
 					</div>
 				`)}
-				${appUpdate.state.profiles.length > 0 ? null : html`
+				${state.profiles.length > 0 ? null : html`
 					<p class=none>no profiles loaded</p>
 				`}
 			</div>
@@ -65,6 +74,7 @@ export class PastesafeApp extends Component {
 					<input
 						@change=${this._handleInputBlobChange}
 						@keyup=${this._handleInputBlobChange}
+						.value=${this._profileDraft.label}
 						type=text
 						placeholder="profile name"
 						/>

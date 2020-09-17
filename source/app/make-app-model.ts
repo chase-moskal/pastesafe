@@ -4,7 +4,7 @@ import {makeJsonStorage} from "metalshop/dist/toolbox/json-storage.js"
 import {copy} from "../toolbox/copy.js"
 import {randex} from "../toolbox/randex.js"
 import {hashAny} from "../toolbox/hash.js"
-import {AppState, ProfileDraft, SessionDraft, Profile, AppModelParams} from "../types.js"
+import {ProfileDraft, SessionDraft, Profile, AppModelParams} from "../types.js"
 
 export function makeAppModel({storage, onUpdate}: AppModelParams) {
 
@@ -23,6 +23,7 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 				id: randex(),
 				sessions: [],
 				label: draft.label,
+				created: Date.now(),
 			}
 			state.profiles.push(profile)
 		},
