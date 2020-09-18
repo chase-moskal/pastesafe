@@ -23,14 +23,15 @@ export function renderButtonBar(params: {
 				<input
 					type=text
 					placeholder="profile label"
+					.value=${params.profileDraft.label}
+					?disabled=${disabled}
 					@change=${handleLabelChange}
 					@keyup=${handleLabelChange}
-					.value=${params.profileDraft.label}
 					/>
 				<button
 					?disabled=${disabled}
 					@click=${params.onGenerateProfile}>
-						generate profile
+						new profile
 				</button>
 			</div>
 			${params.profiles.length < 1 ? null : html`

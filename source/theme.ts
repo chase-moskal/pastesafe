@@ -9,6 +9,10 @@ export const theme = css`
 	box-sizing: border-box;
 }
 
+a {
+	color: white;
+}
+
 [data-coolinputs] input[type=text],
 [data-coolinputs] button {
 	font: inherit;
@@ -34,7 +38,7 @@ export const theme = css`
 	background: #3a8490;
 }
 
-[data-coolinputs] button[disabled] {
+[data-coolinputs] [disabled] {
 	opacity: 0.32;
 	cursor: default;
 	background: #00000044 !important;

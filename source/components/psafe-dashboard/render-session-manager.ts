@@ -5,16 +5,20 @@ import {formatDate} from "../../toolbox/format-date.js"
 
 export function renderSessionManager({ready, profileId, sessions, onGenerateSession}: {
 		ready: boolean
-		profileId: string,
+		profileId: string
 		sessions: Session[]
 		onGenerateSession: (draft: SessionDraft) => void
 	}) {
 
+	const disabled = !ready
+
+	const sortedSessions = [...sessions].sort(
+		(a, b) => a.created > b.created ? -1 : 1
+	)
+
 	function clickGenerate() {
 		onGenerateSession({profileId, label: ""})
 	}
-
-	const disabled = !ready
 
 	return html`
 		<div class=sessionmanager>
@@ -22,7 +26,7 @@ export function renderSessionManager({ready, profileId, sessions, onGenerateSess
 				<button ?disabled=${disabled} @click=${clickGenerate}>generate session</button>
 			</div>
 			<div class=sessionlist>
-				${sessions.map(session => html`
+				${sortedSessions.map(session => html`
 					<div class=session>
 						<h4>${session.label}</h4>
 						<p>
@@ -32,6 +36,10 @@ export function renderSessionManager({ready, profileId, sessions, onGenerateSess
 						<p>
 							<strong>created</strong>
 							<span>${formatDate(session.created)}</span>
+						</p>
+						<p>
+							<strong>link</strong>
+							<span><a href="#">https://pastesafe.org/#invite-${session.id.slice(0, 6)}...</a></span>
 						</p>
 					</div>
 				`)}

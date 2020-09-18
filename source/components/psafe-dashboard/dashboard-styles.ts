@@ -49,4 +49,14 @@ export const styles = css`
 	background: maroon;
 }
 
+.sessionmanager {
+	padding: 0.5em;
+}
+
+.session {
+	margin-top: 0.5em;
+	border-top: 1px solid #ffffff22;
+	padding-top: 0.5em;
+}
+
 `
