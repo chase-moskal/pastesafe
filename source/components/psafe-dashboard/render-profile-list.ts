@@ -1,11 +1,12 @@
 
-import {Profile, SessionDraft} from "../../types.js"
 import {html} from "../../app/component.js"
+import {Profile, SessionDraft} from "../../types.js"
 
 import {formatDate} from "../../toolbox/format-date.js"
 import {renderSessionManager} from "./render-session-manager.js"
 
-export function renderProfileList({profiles, onGenerateSession}: {
+export function renderProfileList({ready, profiles, onGenerateSession}: {
+		ready: boolean
 		profiles: Profile[]
 		onGenerateSession: (draft: SessionDraft) => void
 	}) {
@@ -27,6 +28,7 @@ export function renderProfileList({profiles, onGenerateSession}: {
 						</p>
 					</div>
 					${renderSessionManager({
+						ready,
 						onGenerateSession,
 						profileId: profile.id,
 						sessions: profile.sessions,

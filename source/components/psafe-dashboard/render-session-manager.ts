@@ -3,7 +3,8 @@ import {html} from "../../app/component.js"
 import {Session, SessionDraft} from "../../types.js"
 import {formatDate} from "../../toolbox/format-date.js"
 
-export function renderSessionManager({profileId, sessions, onGenerateSession}: {
+export function renderSessionManager({ready, profileId, sessions, onGenerateSession}: {
+		ready: boolean
 		profileId: string,
 		sessions: Session[]
 		onGenerateSession: (draft: SessionDraft) => void
@@ -13,10 +14,12 @@ export function renderSessionManager({profileId, sessions, onGenerateSession}: {
 		onGenerateSession({profileId, label: ""})
 	}
 
+	const disabled = !ready
+
 	return html`
 		<div class=sessionmanager>
-			<div class="sessioncontrols">
-				<button @click=${clickGenerate}>generate session</button>
+			<div class=sessioncontrols data-coolinputs>
+				<button ?disabled=${disabled} @click=${clickGenerate}>generate session</button>
 			</div>
 			<div class=sessionlist>
 				${sessions.map(session => html`

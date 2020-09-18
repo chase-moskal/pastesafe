@@ -1,4 +1,3 @@
-import { boundAttributeSuffix } from "lit-html/lib/template"
 
 import {css} from "lit-element"
 
@@ -33,6 +32,12 @@ export const theme = css`
 [data-coolinputs] button:hover,
 [data-coolinputs] button:focus {
 	background: #3a8490;
+}
+
+[data-coolinputs] button[disabled] {
+	opacity: 0.32;
+	cursor: default;
+	background: #00000044 !important;
 }
 
 `

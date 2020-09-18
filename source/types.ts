@@ -1,10 +1,15 @@
 
-import {makeAppModel} from "./app/make-app-model.js"
 import {Subscribe} from "metalshop/dist/toolbox/pubsub.js"
+import * as loading from "metalshop/dist/metalfront/toolbox/loading.js"
+
+import {makeAppModel} from "./app/make-app-model.js"
 
 export type AppModel = ReturnType<typeof makeAppModel>
 
+export type Busy = loading.Load<void>
+
 export interface AppState {
+	busy: Busy
 	invite: {}
 	profiles: Profile[]
 }

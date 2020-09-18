@@ -1,4 +1,5 @@
 
+import * as loading from "metalshop/dist/metalfront/toolbox/loading.js"
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
 import {ProfileDraft} from "../../types.js"
@@ -16,12 +17,15 @@ export class PsafeDashboard extends Component {
 
 	render() {
 		const {state, actions} = this.appUpdate
+		const {busy} = state
 		const profiles = [...state.profiles].sort(
 			(a, b) => a.created > b.created ? -1 : 1
 		)
+		const ready = loading.isReady(busy)
 		return html`
 
 			${renderButtonBar({
+				ready,
 				profiles,
 				profileDraft: this._profileDraft,
 				onWipeProfiles: () => actions.clearProfiles(),
@@ -33,6 +37,7 @@ export class PsafeDashboard extends Component {
 			})}
 
 			${renderProfileList({
+				ready,
 				profiles,
 				onGenerateSession: draft => actions.createSession(draft),
 			})}

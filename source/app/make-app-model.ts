@@ -1,10 +1,11 @@
 
 import {makeJsonStorage} from "metalshop/dist/toolbox/json-storage.js"
+import * as loading from "metalshop/dist/metalfront/toolbox/loading.js"
 
 import {copy} from "../toolbox/copy.js"
 import {randex} from "../toolbox/randex.js"
 import {hashAny} from "../toolbox/hash.js"
-import {ProfileDraft, SessionDraft, Profile, AppModelParams, Session, AppState} from "../types.js"
+import {ProfileDraft, SessionDraft, Profile, AppModelParams, Session, AppState, Busy} from "../types.js"
 
 import {generateKeys} from "./xcrypto.js"
 
@@ -17,9 +18,14 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	let state: AppState = {
 		profiles: [],
 		invite: undefined,
+		busy: loading.ready(),
 	}
 
 	const actions = {
+
+		setBusy(busy: Busy) {
+			state.busy = busy
+		},
 
 		async createProfile(draft: ProfileDraft) {
 			const profile: Profile = {
@@ -40,6 +46,7 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 		},
 
 		async createSession(draft: SessionDraft) {
+			actions.setBusy(loading.loading())
 			const session: Session = {
 				id: randex(),
 				label: draft.label,
@@ -48,6 +55,7 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 			}
 			const profile = state.profiles.find(p => p.id === draft.profileId)
 			profile.sessions.push(session)
+			actions.setBusy(loading.ready())
 		},
 
 		async deleteSession(profileId: string, sessionId: string) {},
