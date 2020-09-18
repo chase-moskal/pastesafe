@@ -20,22 +20,21 @@ export class PsafeDashboard extends Component {
 			(a, b) => a.created > b.created ? -1 : 1
 		)
 		return html`
+
 			${renderButtonBar({
 				profiles,
 				profileDraft: this._profileDraft,
-				onWipeProfiles: () => {
-					actions.clearProfiles()
-				},
+				onWipeProfiles: () => actions.clearProfiles(),
 				onGenerateProfile: () => {
 					actions.createProfile(this._profileDraft)
 					this._profileDraft = {label: ""}
 				},
-				onUpdateProfileDraft: draft => {
-					this._profileDraft = draft
-				},
+				onUpdateProfileDraft: draft => this._profileDraft = draft,
 			})}
+
 			${renderProfileList({
-				profiles
+				profiles,
+				onGenerateSession: draft => actions.createSession(draft),
 			})}
 		`
 	}

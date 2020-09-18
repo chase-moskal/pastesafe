@@ -4,7 +4,9 @@ import {makeJsonStorage} from "metalshop/dist/toolbox/json-storage.js"
 import {copy} from "../toolbox/copy.js"
 import {randex} from "../toolbox/randex.js"
 import {hashAny} from "../toolbox/hash.js"
-import {ProfileDraft, SessionDraft, Profile, AppModelParams} from "../types.js"
+import {ProfileDraft, SessionDraft, Profile, AppModelParams, Session} from "../types.js"
+
+import {generateKeys} from "./xcrypto.js"
 
 export function makeAppModel({storage, onUpdate}: AppModelParams) {
 
@@ -18,6 +20,7 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	}
 
 	const actions = {
+
 		async createProfile(draft: ProfileDraft) {
 			const profile: Profile = {
 				id: randex(),
@@ -27,13 +30,26 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 			}
 			state.profiles.push(profile)
 		},
+
 		async deleteProfile(profileId: string) {
 			state.profiles = state.profiles.filter(({id}) => id !== profileId)
 		},
+
 		async clearProfiles() {
 			state.profiles = []
 		},
-		async createSession(draft: SessionDraft) {},
+
+		async createSession(draft: SessionDraft) {
+			const session: Session = {
+				id: randex(),
+				label: draft.label,
+				created: Date.now(),
+				keys: await generateKeys(),
+			}
+			const profile = state.profiles.find(p => p.id === draft.profileId)
+			profile.sessions.push(session)
+		},
+
 		async deleteSession(profileId: string, sessionId: string) {},
 	}
 
@@ -79,10 +95,11 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	//
 
 	for (const [key, action] of Object.entries(actions)) {
-		actions[key] = (...args: any[]) => {
-			action.apply(actions, args)
+		actions[key] = async(...args: any[]) => {
+			const results = await action.apply(actions, args)
 			save()
 			triggerUpdate()
+			return results
 		}
 	}
 

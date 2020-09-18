@@ -1,24 +1,36 @@
 
-import {formatDate} from "metalshop/dist/metalfront/toolbox/dates.js"
-
-import {Profile} from "../../types.js"
+import {Profile, SessionDraft} from "../../types.js"
 import {html} from "../../app/component.js"
 
-export function renderProfileList({profiles}: {
+import {formatDate} from "../../toolbox/format-date.js"
+import {renderSessionManager} from "./render-session-manager.js"
+
+export function renderProfileList({profiles, onGenerateSession}: {
 		profiles: Profile[]
+		onGenerateSession: (draft: SessionDraft) => void
 	}) {
 	return html`
 		<div class=profilelist>
 			${profiles.map(profile => html`
 				<div class=profile>
-					<h3 class=profile_label>${profile.label}</h3>
+					<h3 class=profile_label>
+						${profile.label}
+					</h3>
 					<div class=profile_details>
-						<p><strong>profile id</strong> ${profile.id}</p>
-						<p title=${profile.created}><strong>created</strong> ${(() => {
-							const {datestring, timestring} = formatDate(profile.created)
-							return `${datestring} ${timestring}`
-						})()}</p>
+						<p data-detail=id>
+							<strong>profile id</strong>
+							<span>${profile.id}</span>
+						</p>
+						<p data-detail=created title=${profile.created}>
+							<strong>created</strong>
+							<span>${formatDate(profile.created)}</span>
+						</p>
 					</div>
+					${renderSessionManager({
+						onGenerateSession,
+						profileId: profile.id,
+						sessions: profile.sessions,
+					})}
 				</div>
 			`)}
 			${profiles.length > 0 ? null : html`

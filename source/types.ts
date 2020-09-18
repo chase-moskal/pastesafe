@@ -33,10 +33,16 @@ export interface SessionDraft {
 	label: string
 }
 
+export interface Keys {
+	publicKey: JsonWebKey
+	privateKey: JsonWebKey
+}
+
 export interface Session {
 	id: string
+	keys: Keys
 	label: string
-	link: string
+	created: number
 }
 
 export interface AppUpdate {
