@@ -28,6 +28,7 @@ export class PsafeDashboard extends Component {
 				},
 				onGenerateProfile: () => {
 					actions.createProfile(this._profileDraft)
+					this._profileDraft = {label: ""}
 				},
 				onUpdateProfileDraft: draft => {
 					this._profileDraft = draft
