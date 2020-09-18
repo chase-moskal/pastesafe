@@ -7,7 +7,7 @@ import {themeComponents} from "metalshop/dist/metalfront/framework/theme-compone
 import {registerComponents} from "metalshop/dist/metalfront/toolbox/register-components.js"
 
 import {makeAppModel} from "./app/make-app-model.js"
-import {PsafeDashboard} from "./components/pastesafe-app/pastesafe-dashboard.js"
+import {PsafeDashboard} from "./components/psafe-dashboard/psafe-dashboard.js"
 
 import {theme} from "./theme.js"
 import {AppUpdateListener, AppShare} from "./types.js"
