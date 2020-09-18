@@ -7,7 +7,7 @@ import {themeComponents} from "metalshop/dist/metalfront/framework/theme-compone
 import {registerComponents} from "metalshop/dist/metalfront/toolbox/register-components.js"
 
 import {makeAppModel} from "./app/make-app-model.js"
-import {PastesafeApp} from "./components/pastesafe-app/pastesafe-app.js"
+import {PsafeDashboard} from "./components/pastesafe-app/pastesafe-dashboard.js"
 
 import {theme} from "./theme.js"
 import {AppUpdateListener, AppShare} from "./types.js"
@@ -29,7 +29,7 @@ void async function main() {
 	}
 
 	registerComponents(themeComponents(theme, wireComponentShares({
-		PastesafeApp,
+		PsafeDashboard,
 	})))
 
 	app.start()

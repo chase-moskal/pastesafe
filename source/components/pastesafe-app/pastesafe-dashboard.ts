@@ -9,7 +9,7 @@ import {renderButtonBar} from "./render-button-bar.js"
 import {renderProfileList} from "./render-profile-list.js"
 
  @mixinStyles(styles)
-export class PastesafeApp extends Component {
+export class PsafeDashboard extends Component {
 
 	 @property({type: Object, reflect: false})
 	private _profileDraft: ProfileDraft = {label: ""}
