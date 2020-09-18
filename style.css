@@ -81,8 +81,15 @@ body {
 html {
 	font-family: "VT323", sans-serif;
 	color: #b0da6e;
-	background: #013a0d;
-	background: linear-gradient(-120deg, #496d51, #013a0d);
+	background:
+		linear-gradient(-120deg, #496d51ee, #013a0dff),
+		url(https://source.unsplash.com/ALu2B7Vy7ao),
+		#013a0dff;
+	background-size: cover;
+}
+
+body {
+	backdrop-filter: blur(20px);
 }
 
 a {
@@ -99,6 +106,10 @@ a {
 	background: #a7a20047;
 	font-weight: normal;
 	border-radius: 2em;
+}
+
+.siteheader {
+  background: #ffffff11;
 }
 
 .sitemain, .sitefooter {
