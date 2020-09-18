@@ -22,6 +22,10 @@ export const styles = css`
 	margin-top: 0.5em;
 }
 
+.profile_label {
+	color: white;
+}
+
 .empty-list-consolation {
 	/* remove this rule to show a consolation message */
 	display: none;
