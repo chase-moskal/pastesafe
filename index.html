@@ -14,7 +14,7 @@
 	<body>
 		<header class=siteheader>
 			<div class=title>
-				<h1>pastesafe <span class=tag>prototype</span></h1>
+				<h1>pastesafe <span class=tag>coming soon</span></h1>
 				<p>open source encryption</p>
 			</div>
 		</header>
@@ -26,21 +26,20 @@
 		</main>
 		<footer class=sitefooter>
 			<div class=stdcontent>
+				<p class=wipnote><strong>WORK IN PROGRESS NOTE</strong> — pastesafe doesn't work yet. we're actively putting it together, so check back soon!</p>
 				<h2>pastesafe lets you talk secretly in public</h2>
-				<p class=wipnote><strong>WORK IN PROGRESS NOTE</strong> — pastesafe is currently under construction, so it literally doesn't work yet! check back soon!</p>
-				<p>it was originally built to facilitate two people sharing sensitive information, like passwords, over an untrusted medium like any internet forum</p>
-				<p>so pastesafe is a medium-agnostic end-to-end encryption app</p>
-				<h4>all pastesafe communications are initiated by an invite</h4>
+				<p>exchange private information via encrypted links</p>
+				<h4>all pastesafe communications are initiated by an invite link</h4>
 				<ol>
-					<li>bob wants secret info from alice. so, bob creates a pastesafe session and sends her the invite link</li>
-					<li>alice clicks invite link, and is prompted to enter her secret info</li>
-					<li>pastesafe packs the secret info into an encrypted link which only bob can decode</li>
-					<li>alice sends back the response link, and bob clicks it to decode</li>
+					<li>bob wants to receive secret info from alice. so, bob creates a pastesafe session and sends her the invite link</li>
+					<li>alice clicks the invite link, and is prompted to enter her secret info for bob</li>
+					<li>pastesafe packs the secret response into an encrypted link, which only bob can decode</li>
+					<li>alice sends back this new response link, and bob clicks to decode it</li>
 				</ol>
 				<h4>more about pastesafe</h4>
 				<ul>
-					<li>100% open source <a href="https://github.com/chase-moskal/pastesafe">on github</a></li>
-					<li>100% serverless clientside webcrypto</li>
+					<li>100% open source <a href="https://github.com/chase-moskal/pastesafe">on github</a>, let's collaborate!</li>
+					<li>100% serverless clientside webcrypto, keys in localstorage</li>
 					<li>asymmetric public key cryptography, rsa-oaep 4096</li>
 				</ul>
 			</div>
