@@ -20,7 +20,7 @@ export function renderProfileList({profiles}: {
 				</div>
 			`)}
 			${profiles.length > 0 ? null : html`
-				<p class=none>no profiles loaded</p>
+				<p class=empty-list-consolation>no profiles loaded</p>
 			`}
 		</div>
 	`

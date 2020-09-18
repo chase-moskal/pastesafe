@@ -22,25 +22,26 @@ export const styles = css`
 	margin-top: 0.5em;
 }
 
-.none {
+.empty-list-consolation {
+	/* remove this rule to show a consolation message */
 	display: none;
 }
 
-.bar {
+.buttonbar {
 	display: flex;
 	flex-direction: row;
 }
 
-.bar > * + * {
+.buttonbar > * + * {
 	margin-left: 0.5em;
 }
 
-.bar button.destroybutton {
+.buttonbar button.destroybutton {
 	background: #3b3e10;
 }
 
-.bar button.destroybutton:hover,
-.bar button.destroybutton:focus {
+.buttonbar button.destroybutton:hover,
+.buttonbar button.destroybutton:focus {
 	background: maroon;
 }
 

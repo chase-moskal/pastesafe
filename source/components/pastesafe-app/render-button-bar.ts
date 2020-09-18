@@ -15,7 +15,7 @@ export function renderButtonBar(x: {
 	}
 
 	return html`
-		<div class=bar data-coolinputs>
+		<div class=buttonbar data-coolinputs>
 			<div class=inputblob>
 				<input
 					type=text
