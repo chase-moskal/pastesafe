@@ -1,21 +1,19 @@
 
+import {pubsub} from "metalshop/dist/toolbox/pubsub.js"
+import {objectMap} from "metalshop/dist/toolbox/object-map.js"
+import {ConstructorFor} from "metalshop/dist/metalfront/types.js"
 import {share} from "metalshop/dist/metalfront/framework/share.js"
 import {themeComponents} from "metalshop/dist/metalfront/framework/theme-components.js"
 import {registerComponents} from "metalshop/dist/metalfront/toolbox/register-components.js"
 
 import {makeAppModel} from "./app/make-app-model.js"
-import {PastesafeApp} from "./components/pastesafe-app.js"
+import {PastesafeApp} from "./components/pastesafe-app/pastesafe-app.js"
 
 import {theme} from "./theme.js"
-
 import {AppUpdateListener, AppShare} from "./types.js"
-import {pubsub} from "metalshop/dist/toolbox/pubsub.js"
-import {objectMap} from "metalshop/dist/toolbox/object-map.js"
-import {ConstructorFor} from "metalshop/dist/metalfront/types.js"
 
 void async function main() {
 	const appUpdate = pubsub<AppUpdateListener>()
-	// appUpdate.subscribe(update => console.log(`[${Date.now()}] app update`, update))
 
 	const app = makeAppModel({
 		storage: localStorage,
