@@ -2,7 +2,7 @@
 import {html} from "../../app/component.js"
 import {Profile, ProfileDraft} from "../../types.js"
 
-export function renderButtonBar(x: {
+export function renderButtonBar(params: {
 		profiles: Profile[]
 		profileDraft: ProfileDraft
 		onWipeProfiles: () => void
@@ -11,23 +11,23 @@ export function renderButtonBar(x: {
 	}) {
 
 	function handleLabelChange({target}: {target: HTMLInputElement}) {
-		x.onUpdateProfileDraft({label: target.value})
+		params.onUpdateProfileDraft({label: target.value})
 	}
 
 	return html`
 		<div class=buttonbar data-coolinputs>
-			<div class=inputblob>
+			<div class=profile_generator>
 				<input
 					type=text
-					placeholder="profile name"
+					placeholder="profile label"
 					@change=${handleLabelChange}
 					@keyup=${handleLabelChange}
-					.value=${x.profileDraft.label}
+					.value=${params.profileDraft.label}
 					/>
-				<button @click=${x.onGenerateProfile}>generate profile</button>
+				<button @click=${params.onGenerateProfile}>generate profile</button>
 			</div>
-			${x.profiles.length < 1 ? null : html`
-				<button class=destroybutton @click=${x.onWipeProfiles}>destroy all profiles</button>
+			${params.profiles.length < 1 ? null : html`
+				<button class=destroybutton @click=${params.onWipeProfiles}>destroy all profiles</button>
 			`}
 		</div>
 	`

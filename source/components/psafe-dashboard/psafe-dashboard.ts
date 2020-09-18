@@ -4,7 +4,7 @@ import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 import {ProfileDraft} from "../../types.js"
 import {Component, html, property} from "../../app/component.js"
 
-import {styles} from "./styles.js"
+import {styles} from "./dashboard-styles.js"
 import {renderButtonBar} from "./render-button-bar.js"
 import {renderProfileList} from "./render-profile-list.js"
 
