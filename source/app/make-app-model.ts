@@ -4,7 +4,7 @@ import {makeJsonStorage} from "metalshop/dist/toolbox/json-storage.js"
 import {copy} from "../toolbox/copy.js"
 import {randex} from "../toolbox/randex.js"
 import {hashAny} from "../toolbox/hash.js"
-import {ProfileDraft, SessionDraft, Profile, AppModelParams, Session} from "../types.js"
+import {ProfileDraft, SessionDraft, Profile, AppModelParams, Session, AppState} from "../types.js"
 
 import {generateKeys} from "./xcrypto.js"
 
@@ -14,7 +14,7 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	// state and actions
 	//
 
-	let state = {
+	let state: AppState = {
 		profiles: [],
 		invite: undefined,
 	}
