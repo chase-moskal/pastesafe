@@ -7,20 +7,28 @@ export const styles = css`
 }
 
 :host {
-	max-width: 640px;
 	display: block;
+}
 
+.profilelist {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
+	justify-items: center;
+	gap: 0.5em;
+}
+
+@media (max-width: 35em) {
+	.profilelist {
+		grid-template-columns: none;
+	}
 }
 
 .profile {
+	width: 100%;
 	padding: 0.5em;
 	background: #00000066;
 	border: 1px solid #ffffff33;
 	box-shadow: 3px 5px 6px #00000033;
-}
-
-.profile + .profile {
-	margin-top: 0.5em;
 }
 
 .profile_label {
