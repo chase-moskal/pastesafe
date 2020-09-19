@@ -6,8 +6,13 @@ export const styles = css`
 	margin-top: 0.5em;
 }
 
-.profile {
+:host {
 	max-width: 640px;
+	display: block;
+
+}
+
+.profile {
 	padding: 0.5em;
 	background: #00000066;
 	border: 1px solid #ffffff33;
@@ -38,6 +43,7 @@ export const styles = css`
 
 .buttonbar button.destroybutton {
 	background: #3b3e10;
+	margin-left: auto;
 }
 
 .buttonbar button.destroybutton:hover,

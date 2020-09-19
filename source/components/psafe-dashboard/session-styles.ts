@@ -38,7 +38,6 @@ svg {
 	border: none;
 	color: inherit;
 	background: transparent;
-	transition: all 100ms ease;
 }
 
 .session-buttons button:hover,

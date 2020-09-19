@@ -25,6 +25,11 @@ export function renderLabelInput({
 
 	return html`
 		<div class=label_input>
+			<button
+				?disabled=${disabled}
+				@click=${onButtonClick}>
+					${buttonText}
+			</button>
 			<input
 				type=text
 				placeholder=${placeholder}
@@ -33,11 +38,6 @@ export function renderLabelInput({
 				@change=${handleLabelChange}
 				@keyup=${handleLabelChange}
 				/>
-			<button
-				?disabled=${disabled}
-				@click=${onButtonClick}>
-					${buttonText}
-			</button>
 		</div>
 	`
 }

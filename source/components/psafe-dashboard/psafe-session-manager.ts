@@ -21,15 +21,12 @@ export class PsafeSessionManager extends Component {
 	 @property({type: Object, reflect: false})
 	private _actual_sessionDraft: SessionDraft
 	private get _sessionDraft() {
-		const draft = this._actual_sessionDraft ?? {
+		return this._actual_sessionDraft ?? {
 			label: "",
 			profileId: this.props?.profileId,
 		}
-		console.log("get", draft)
-		return draft
 	}
 	private set _sessionDraft(draft: SessionDraft) {
-		console.log("set", draft)
 		this._actual_sessionDraft = draft
 	}
 
