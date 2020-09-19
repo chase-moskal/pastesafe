@@ -31,7 +31,18 @@ export const styles = css`
 	box-shadow: 3px 5px 6px #00000033;
 }
 
-.profile_label {
+.profile_card {
+	display: flex;
+	flex-direction: row;
+}
+
+.profile_endbuttons {
+	font-size: 1.5em;
+	margin-left: auto;
+	margin-right: 0.25rem;
+}
+
+.profile_details h3 {
 	color: white;
 }
 

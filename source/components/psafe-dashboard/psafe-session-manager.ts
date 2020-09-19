@@ -1,5 +1,4 @@
 
-import * as loading from "metalshop/dist/metalfront/toolbox/loading.js"
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
 import {formatDate} from "../../toolbox/format-date.js"
@@ -50,10 +49,10 @@ export class PsafeSessionManager extends Component {
 				<div class=sessionlist>
 					${sortedSessions.map(session => html`
 						<div class=session>
-							<div class=icon>
+							<div class=session-icon>
 								${keyIcon}
 							</div>
-							<div class=details>
+							<div class=session-details>
 								<h4>${session.label}</h4>
 								<p>
 									<strong>session id</strong>
@@ -70,9 +69,10 @@ export class PsafeSessionManager extends Component {
 									</a></span>
 								</p>
 							</div>
-							<div class=session-buttons>
+							<div class=session-buttons data-iconbuttons>
 								<button
 									data-x
+									title="delete session"
 									@click=${() => onClickDeleteSession(session.id)}>
 										${xIcon}
 								</button>

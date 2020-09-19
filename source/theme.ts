@@ -16,6 +16,12 @@ a {
 	color: white;
 }
 
+svg {
+	fill: currentColor;
+}
+
+/* coolinputs */
+
 [data-coolinputs] {
 	font-size: 0.8em;
 }
@@ -49,6 +55,32 @@ a {
 	opacity: 0.32;
 	cursor: default;
 	background: #00000044 !important;
+}
+
+/* iconbuttons */
+
+[data-iconbuttons] button {
+	font-size: 1em;
+	cursor: pointer;
+	border: none;
+	color: inherit;
+	background: transparent;
+}
+
+[data-iconbuttons] button:hover,
+[data-iconbuttons] button:focus {
+	transform: scale(1.2);
+}
+
+[data-iconbuttons] button[data-x]:hover,
+[data-iconbuttons] button[data-x]:focus {
+	color: red;
+}
+
+[data-iconbuttons] svg {
+	display: block;
+	width: 1em;
+	height: 1em;
 }
 
 `

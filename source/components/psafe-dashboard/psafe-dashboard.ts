@@ -39,6 +39,7 @@ export class PsafeDashboard extends Component {
 			${renderProfileList({
 				ready,
 				profiles,
+				onClickDeleteProfile: actions.deleteProfile,
 				onClickDeleteSession: actions.deleteSession,
 				onClickGenerateSession: actions.createSession,
 			})}

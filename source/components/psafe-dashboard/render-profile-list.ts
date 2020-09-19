@@ -1,4 +1,5 @@
 
+import xIcon from "../../icons/x.svg.js"
 import {html} from "../../app/component.js"
 import {formatDate} from "../../toolbox/format-date.js"
 import {Profile, SessionDraft, SessionManagerProps} from "../../types.js"
@@ -7,29 +8,41 @@ export function renderProfileList({
 		ready,
 		profiles,
 		onClickDeleteSession,
+		onClickDeleteProfile,
 		onClickGenerateSession,
 	}: {
 		ready: boolean
 		profiles: Profile[]
-		onClickDeleteSession: (profileId: string, sessionId: string) => void
+		onClickDeleteProfile: (profileId: string) => void
 		onClickGenerateSession: (draft: SessionDraft) => void
+		onClickDeleteSession: (profileId: string, sessionId: string) => void
 	}) {
 	return html`
 		<div class=profilelist>
 			${profiles.map(profile => html`
 				<div class=profile>
-					<h3 class=profile_label>
-						${profile.label}
-					</h3>
-					<div class=profile_details>
-						<p data-detail=id>
-							<strong>profile id</strong>
-							<span>${profile.id}</span>
-						</p>
-						<p data-detail=created title=${profile.created}>
-							<strong>created</strong>
-							<span>${formatDate(profile.created)}</span>
-						</p>
+					<div class=profile_card>
+						<div class=profile_details>
+							<h3 class=profile_label>
+								${profile.label}
+							</h3>
+							<p data-detail=id>
+								<strong>profile id</strong>
+								<span>${profile.id}</span>
+							</p>
+							<p data-detail=created title=${profile.created}>
+								<strong>created</strong>
+								<span>${formatDate(profile.created)}</span>
+							</p>
+						</div>
+						<div class=profile_endbuttons data-iconbuttons>
+							<button
+								data-x
+								title="delete profile"
+								@click=${() => onClickDeleteProfile(profile.id)}>
+									${xIcon}
+							</button>
+						</div>
 					</div>
 					<psafe-session-manager
 						.props=${<SessionManagerProps>{
