@@ -13,9 +13,10 @@ export function encodeInviteLink({
 	}): string {
 	const json = JSON.stringify(payload)
 	const bytes = (new TextEncoder).encode(json)
+	const idchunk = payload.sessionId.slice(0, 6)
 	const encoded = encode(bytes)
 	const sep = baseUrl.endsWith("/") ? "" : "/"
-	return `${baseUrl}${sep}#invite-${encoded}`
+	return `${baseUrl}${sep}#invite-${idchunk}${encoded}`
 }
 
 export function decodeInviteLink({
@@ -25,7 +26,7 @@ export function decodeInviteLink({
 		fragment: string
 		decode?: ByteDecoder
 	}): InviteLinkPayload {
-	const parse = /^#?invite-([0-9a-f]+)$/.exec(fragment)
+	const parse = /^#?invite-\S{6}([\S]+)$/.exec(fragment)
 	if (parse) {
 		const [,encoded] = parse
 		const bytes = decode(encoded)

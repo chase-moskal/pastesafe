@@ -1,9 +1,10 @@
 
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
+import {blur} from "../../toolbox/blur.js"
+import {encodeInviteLink} from "../../app/links.js"
 import {formatDate} from "../../toolbox/format-date.js"
 import {Component, html, property} from "../../app/component.js"
-import {encodeInviteLink} from "../../app/links.js"
 import {Session, SessionDraft, SessionManagerProps} from "../../types.js"
 
 import xIcon from "../../icons/x.svg.js"
@@ -11,7 +12,6 @@ import keyIcon from "../../icons/key.svg.js"
 
 import {styles} from "./session-styles.js"
 import {renderLabelInput} from "./render-label-input.js"
-import { profile } from "console"
 
  @mixinStyles(styles)
 export class PsafeSessionManager extends Component {
@@ -24,7 +24,7 @@ export class PsafeSessionManager extends Component {
 	private get _sessionDraft() {
 		return this._actual_sessionDraft ?? {
 			label: "",
-			profileId: this.props?.profile.id,
+			profileId: this.props?.profileId,
 		}
 	}
 	private set _sessionDraft(draft: SessionDraft) {
@@ -32,7 +32,7 @@ export class PsafeSessionManager extends Component {
 	}
 
 	render() {
-		const {ready, sessions, profile, onClickGenerateSession, onClickDeleteSession} = this.props
+		const {ready, sessions, profileId, onClickGenerateSession, onClickDeleteSession} = this.props
 		const sortedSessions = [...sessions].sort(
 			(a, b) => a.created > b.created ? -1 : 1
 		)
@@ -42,15 +42,15 @@ export class PsafeSessionManager extends Component {
 			const inviteLink = encodeInviteLink({
 				baseUrl,
 				payload: {
-					profileId: profile.id,
-					profileLabel: profile.label,
-					profileCreated: profile.created,
 					sessionId: session.id,
-					sessionLabel: session.label,
-					sessionCreated: session.created,
 					sessionPublicKey: session.keys.publicKey,
 				},
 			})
+			const inviteLinkPreview = inviteLink.slice(0, baseUrl.length + 14) + "..."
+			function onClickDelete() {
+				onClickDeleteSession(session.id)
+				blur()
+			}
 			return html`
 				<div class=session>
 					<div class=session-icon>
@@ -70,7 +70,7 @@ export class PsafeSessionManager extends Component {
 							<strong>link</strong>
 							<span>
 								<a href=${inviteLink}>
-									${inviteLink.slice(0, baseUrl.length + 16)}
+									${inviteLinkPreview}
 								</a>
 							</span>
 						</p>
@@ -79,7 +79,7 @@ export class PsafeSessionManager extends Component {
 						<button
 							data-x
 							title="delete session"
-							@click=${() => onClickDeleteSession(session.id)}>
+							@click=${onClickDelete}>
 								${xIcon}
 						</button>
 					</div>
@@ -95,12 +95,14 @@ export class PsafeSessionManager extends Component {
 						label: "",
 						placeholder: "session label",
 						buttonText: "generate session",
-						onButtonClick: () => onClickGenerateSession(
-							this._sessionDraft
-						),
+						onButtonClick: () => {
+							const {_sessionDraft: draft} = this
+							this._sessionDraft = {profileId, label: ""}
+							onClickGenerateSession(draft)
+						},
 						onLabelUpdate: label => this._sessionDraft = {
 							label,
-							profileId: profile.id,
+							profileId: profileId,
 						},
 					})}
 				</div>

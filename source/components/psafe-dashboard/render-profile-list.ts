@@ -1,5 +1,6 @@
 
 import xIcon from "../../icons/x.svg.js"
+import {blur} from "../../toolbox/blur.js"
 import {html} from "../../app/component.js"
 import {formatDate} from "../../toolbox/format-date.js"
 import {Profile, SessionDraft, SessionManagerProps} from "../../types.js"
@@ -39,7 +40,10 @@ export function renderProfileList({
 							<button
 								data-x
 								title="delete profile"
-								@click=${() => onClickDeleteProfile(profile.id)}>
+								@click=${() => {
+									onClickDeleteProfile(profile.id)
+									blur()
+								}}>
 									${xIcon}
 							</button>
 						</div>
@@ -47,7 +51,7 @@ export function renderProfileList({
 					<psafe-session-manager
 						.props=${<SessionManagerProps>{
 							ready,
-							profile,
+							profileId: profile.id,
 							sessions: profile.sessions,
 							onClickGenerateSession,
 							onClickDeleteSession: sessionId => onClickDeleteSession(profile.id, sessionId),

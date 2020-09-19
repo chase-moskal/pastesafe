@@ -23,6 +23,13 @@ export function renderLabelInput({
 		onLabelUpdate(target.value)
 	}
 
+	function handleInputKeyUp(event: KeyboardEvent) {
+		if (event.keyCode == 13) {
+			handleLabelChange({target: <HTMLInputElement>event.target})
+			onButtonClick()
+		}
+	}
+
 	return html`
 		<div class=label_input>
 			<button
@@ -36,7 +43,7 @@ export function renderLabelInput({
 				.value=${label}
 				?disabled=${disabled}
 				@change=${handleLabelChange}
-				@keyup=${handleLabelChange}
+				@keyup=${handleInputKeyUp}
 				/>
 		</div>
 	`
