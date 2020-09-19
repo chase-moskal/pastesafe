@@ -8,6 +8,7 @@ import {registerComponents} from "metalshop/dist/metalfront/toolbox/register-com
 
 import {makeAppModel} from "./app/make-app-model.js"
 import {PsafeDashboard} from "./components/psafe-dashboard/psafe-dashboard.js"
+import {PsafeSessionManager} from "./components/psafe-dashboard/psafe-session-manager.js"
 
 import {theme} from "./theme.js"
 import {AppUpdateListener, AppShare} from "./types.js"
@@ -30,6 +31,7 @@ void async function main() {
 
 	registerComponents(themeComponents(theme, wireComponentShares({
 		PsafeDashboard,
+		PsafeSessionManager,
 	})))
 
 	app.start()

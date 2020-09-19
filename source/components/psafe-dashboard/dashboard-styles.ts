@@ -2,10 +2,6 @@
 import {css} from "../../app/component.js"
 export const styles = css`
 
-:host {
-	background: lightskyblue;
-}
-
 :host > * + * {
 	margin-top: 0.5em;
 }
@@ -49,14 +45,8 @@ export const styles = css`
 	background: maroon;
 }
 
-.sessionmanager {
+psafe-session-manager {
 	padding: 0.5em;
-}
-
-.session {
-	margin-top: 0.5em;
-	border-top: 1px solid #ffffff22;
-	padding-top: 0.5em;
 }
 
 `

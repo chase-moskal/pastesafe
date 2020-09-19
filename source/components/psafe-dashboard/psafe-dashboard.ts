@@ -39,7 +39,7 @@ export class PsafeDashboard extends Component {
 			${renderProfileList({
 				ready,
 				profiles,
-				onGenerateSession: draft => actions.createSession(draft),
+				onClickGenerateSession: draft => actions.createSession(draft),
 			})}
 		`
 	}

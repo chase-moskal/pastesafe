@@ -1,6 +1,5 @@
 
 import {css} from "lit-element"
-
 export const theme = css`
 
 * {
@@ -9,8 +8,16 @@ export const theme = css`
 	box-sizing: border-box;
 }
 
+:host {
+	display: block;
+}
+
 a {
 	color: white;
+}
+
+[data-coolinputs] {
+	font-size: 0.8em;
 }
 
 [data-coolinputs] input[type=text],
@@ -19,7 +26,7 @@ a {
 	color: inherit;
 	background: #082440;
 	border: 1px solid #ffffff22;
-	padding: 0.2rem;
+	padding: 0.1rem;
 }
 
 [data-coolinputs] input[type=text]:hover,

@@ -2,7 +2,16 @@
 import {html} from "../../app/component.js"
 import {Profile, ProfileDraft} from "../../types.js"
 
-export function renderButtonBar(params: {
+import {renderLabelInput} from "./render-label-input.js"
+
+export function renderButtonBar({
+		ready,
+		profiles,
+		profileDraft,
+		onWipeProfiles,
+		onGenerateProfile,
+		onUpdateProfileDraft,
+	}: {
 		ready: boolean
 		profiles: Profile[]
 		profileDraft: ProfileDraft
@@ -11,34 +20,23 @@ export function renderButtonBar(params: {
 		onUpdateProfileDraft: (draft: ProfileDraft) => void
 	}) {
 
-	function handleLabelChange({target}: {target: HTMLInputElement}) {
-		params.onUpdateProfileDraft({label: target.value})
-	}
-
-	const disabled = !params.ready
+	const disabled = !ready
 
 	return html`
 		<div class=buttonbar data-coolinputs>
-			<div class=profile_generator>
-				<input
-					type=text
-					placeholder="profile label"
-					.value=${params.profileDraft.label}
-					?disabled=${disabled}
-					@change=${handleLabelChange}
-					@keyup=${handleLabelChange}
-					/>
-				<button
-					?disabled=${disabled}
-					@click=${params.onGenerateProfile}>
-						new profile
-				</button>
-			</div>
-			${params.profiles.length < 1 ? null : html`
+			${renderLabelInput({
+				ready,
+				label: profileDraft.label,
+				buttonText: "new profile",
+				placeholder: "profile label",
+				onButtonClick: onGenerateProfile,
+				onLabelUpdate: label => onUpdateProfileDraft({label}),
+			})}
+			${profiles.length < 1 ? null : html`
 				<button
 					class=destroybutton
 					?disabled=${disabled}
-					@click=${params.onWipeProfiles}>
+					@click=${onWipeProfiles}>
 						destroy all profiles
 				</button>
 			`}

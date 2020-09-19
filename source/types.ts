@@ -66,3 +66,10 @@ export interface AppModelParams {
 	storage: MinimalStorage
 	onUpdate: (update: AppUpdate) => void
 }
+
+export interface SessionManagerProps {
+	ready: boolean
+	profileId: string
+	sessions: Session[]
+	onClickGenerateSession: (draft: SessionDraft) => void
+}
