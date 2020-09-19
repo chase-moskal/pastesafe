@@ -1,10 +1,9 @@
 
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
-import {blur} from "../../toolbox/blur.js"
 import {encodeInviteLink} from "../../app/links.js"
 import {formatDate} from "../../toolbox/format-date.js"
-import {Component, html, property} from "../../app/component.js"
+import {Component, html, property, repeat} from "../../app/component.js"
 import {Session, SessionDraft, SessionManagerProps} from "../../types.js"
 
 import xIcon from "../../icons/x.svg.js"
@@ -49,10 +48,6 @@ export class PsafeSessionManager extends Component {
 				},
 			})
 			const inviteLinkPreview = inviteLink.slice(0, baseUrl.length + 14) + "..."
-			function onClickDelete() {
-				onClickDeleteSession(session.id)
-				blur()
-			}
 			return html`
 				<div class=session>
 					<div class=session-icon>
@@ -81,7 +76,7 @@ export class PsafeSessionManager extends Component {
 						<button
 							data-x
 							title="delete session"
-							@click=${onClickDelete}>
+							@click=${() => onClickDeleteSession(session.id)}>
 								${xIcon}
 						</button>
 					</div>
@@ -109,7 +104,7 @@ export class PsafeSessionManager extends Component {
 					})}
 				</div>
 				<div class=sessionlist>
-					${sortedSessions.map(renderSession)}
+					${repeat(sortedSessions, session => session.id, renderSession)}
 				</div>
 			</div>
 		`

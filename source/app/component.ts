@@ -1,6 +1,8 @@
 
-import {LitElement, TemplateResult, html} from "lit-element"
+import {LitElement} from "lit-element"
 import {AppShare, AppUpdate} from "../types.js"
+
+export {repeat} from "lit-html/directives/repeat.js"
 
 export * from "lit-element"
 

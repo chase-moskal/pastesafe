@@ -1,7 +1,6 @@
 
 import xIcon from "../../icons/x.svg.js"
-import {blur} from "../../toolbox/blur.js"
-import {html} from "../../app/component.js"
+import {html, repeat} from "../../app/component.js"
 import {formatDate} from "../../toolbox/format-date.js"
 import {Profile, SessionDraft, SessionManagerProps} from "../../types.js"
 
@@ -20,7 +19,7 @@ export function renderProfileList({
 	}) {
 	return html`
 		<div class=profilelist>
-			${profiles.map(profile => html`
+			${repeat(profiles, profile => profile.id, profile => html`
 				<div class=profile>
 					<div class=profile_card>
 						<div class=profile_details>
@@ -40,10 +39,7 @@ export function renderProfileList({
 							<button
 								data-x
 								title="delete profile"
-								@click=${() => {
-									onClickDeleteProfile(profile.id)
-									blur()
-								}}>
+								@click=${() => onClickDeleteProfile(profile.id)}>
 									${xIcon}
 							</button>
 						</div>
