@@ -22,10 +22,12 @@ export class PsafeSessionManager extends Component {
 	 @property({type: Object, reflect: false})
 	private _actual_sessionDraft: SessionDraft
 	private get _sessionDraft() {
-		return this._actual_sessionDraft ?? {
+		const draft = this._actual_sessionDraft
+		if (!draft) this._actual_sessionDraft = {
 			label: "",
 			profileId: this.props?.profileId,
 		}
+		return this._actual_sessionDraft
 	}
 	private set _sessionDraft(draft: SessionDraft) {
 		this._actual_sessionDraft = draft
@@ -92,7 +94,7 @@ export class PsafeSessionManager extends Component {
 				<div class=sessioncontrols data-coolinputs>
 					${renderLabelInput({
 						ready,
-						label: "",
+						label: this._sessionDraft.label,
 						placeholder: "session label",
 						buttonText: "generate session",
 						onButtonClick: () => {
