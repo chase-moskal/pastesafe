@@ -1,11 +1,17 @@
 
 import {html} from "../../app/component.js"
-import {Profile, SessionDraft} from "../../types.js"
 import {formatDate} from "../../toolbox/format-date.js"
+import {Profile, SessionDraft, SessionManagerProps} from "../../types.js"
 
-export function renderProfileList({ready, profiles, onClickGenerateSession}: {
+export function renderProfileList({
+		ready,
+		profiles,
+		onClickDeleteSession,
+		onClickGenerateSession,
+	}: {
 		ready: boolean
 		profiles: Profile[]
+		onClickDeleteSession: (profileId: string, sessionId: string) => void
 		onClickGenerateSession: (draft: SessionDraft) => void
 	}) {
 	return html`
@@ -26,11 +32,12 @@ export function renderProfileList({ready, profiles, onClickGenerateSession}: {
 						</p>
 					</div>
 					<psafe-session-manager
-						.props=${{
+						.props=${<SessionManagerProps>{
 							ready,
 							profileId: profile.id,
 							sessions: profile.sessions,
 							onClickGenerateSession,
+							onClickDeleteSession: sessionId => onClickDeleteSession(profile.id, sessionId),
 						}}
 					></psafe-session-manager>
 				</div>

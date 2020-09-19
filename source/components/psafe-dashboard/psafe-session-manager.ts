@@ -2,12 +2,14 @@
 import * as loading from "metalshop/dist/metalfront/toolbox/loading.js"
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
+import {formatDate} from "../../toolbox/format-date.js"
 import {SessionDraft, SessionManagerProps} from "../../types.js"
 import {Component, html, property} from "../../app/component.js"
 
-import keyIcon from "../../icons/key.js"
+import xIcon from "../../icons/x.svg.js"
+import keyIcon from "../../icons/key.svg.js"
+
 import {styles} from "./session-styles.js"
-import {formatDate} from "../../toolbox/format-date.js"
 import {renderLabelInput} from "./render-label-input.js"
 
  @mixinStyles(styles)
@@ -32,7 +34,7 @@ export class PsafeSessionManager extends Component {
 	}
 
 	render() {
-		const {ready, sessions, profileId, onClickGenerateSession} = this.props
+		const {ready, sessions, profileId, onClickGenerateSession, onClickDeleteSession} = this.props
 		const sortedSessions = [...sessions].sort(
 			(a, b) => a.created > b.created ? -1 : 1
 		)
@@ -70,6 +72,13 @@ export class PsafeSessionManager extends Component {
 										https://pastesafe.org/#invite-${session.id.slice(0, 6)}...
 									</a></span>
 								</p>
+							</div>
+							<div class=session-buttons>
+								<button
+									data-x
+									@click=${() => onClickDeleteSession(session.id)}>
+										${xIcon}
+								</button>
 							</div>
 						</div>
 					`)}

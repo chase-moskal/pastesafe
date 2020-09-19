@@ -72,4 +72,5 @@ export interface SessionManagerProps {
 	profileId: string
 	sessions: Session[]
 	onClickGenerateSession: (draft: SessionDraft) => void
+	onClickDeleteSession: (sessionId: string) => void
 }

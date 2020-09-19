@@ -6,6 +6,10 @@ h4 {
 	color: white;
 }
 
+svg {
+	fill: currentColor;
+}
+
 .session {
 	display: flex;
 	flex-direction: row;
@@ -23,11 +27,30 @@ h4 {
 .session .icon svg {
 	width: 1.5em;
 	height: 1.5em;
-	fill: currentColor;
 }
 
 .session .details {
 	flex: 1 0 auto
+}
+
+.session-buttons button {
+	cursor: pointer;
+	border: none;
+	color: inherit;
+	background: transparent;
+	transition: all 100ms ease;
+}
+
+.session-buttons button:hover,
+.session-buttons button:focus {
+	transform: scale(1.2);
+	color: red;
+}
+
+.session-buttons svg {
+	display: block;
+	width: 1.5em;
+	height: 1.5em;
 }
 
 `

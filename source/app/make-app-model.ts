@@ -38,7 +38,7 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 		},
 
 		async deleteProfile(profileId: string) {
-			state.profiles = state.profiles.filter(({id}) => id !== profileId)
+			state.profiles = state.profiles.filter(p => p.id !== profileId)
 		},
 
 		async clearProfiles() {
@@ -58,7 +58,10 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 			actions.setBusy(loading.ready())
 		},
 
-		async deleteSession(profileId: string, sessionId: string) {},
+		async deleteSession(profileId: string, sessionId: string) {
+			const profile = state.profiles.find(p => p.id === profileId)
+			profile.sessions = profile.sessions.filter(s => s.id !== sessionId)
+		},
 	}
 
 	//
