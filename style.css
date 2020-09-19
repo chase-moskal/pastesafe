@@ -96,6 +96,11 @@ a {
 	color: white;
 }
 
+a.lowkey {
+	color: inherit;
+	text-decoration-color: #fff4;
+}
+
 .title > h1 {
 	color: white;
 	text-shadow: 0 0 10px #ffffff66;
