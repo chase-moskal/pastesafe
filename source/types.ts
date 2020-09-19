@@ -69,8 +69,25 @@ export interface AppModelParams {
 
 export interface SessionManagerProps {
 	ready: boolean
-	profileId: string
+	profile: Profile
 	sessions: Session[]
 	onClickGenerateSession: (draft: SessionDraft) => void
 	onClickDeleteSession: (sessionId: string) => void
+}
+
+//
+// links
+//
+
+export type ByteEncoder = (bytes: Uint8Array) => string
+export type ByteDecoder = (encoded: string) => Uint8Array
+
+export interface InviteLinkPayload {
+	profileId: string
+	profileLabel: string
+	profileCreated: number
+	sessionId: string
+	sessionLabel: string
+	sessionCreated: number
+	sessionPublicKey: JsonWebKey
 }

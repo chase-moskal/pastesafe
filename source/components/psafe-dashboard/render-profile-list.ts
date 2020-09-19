@@ -47,7 +47,7 @@ export function renderProfileList({
 					<psafe-session-manager
 						.props=${<SessionManagerProps>{
 							ready,
-							profileId: profile.id,
+							profile,
 							sessions: profile.sessions,
 							onClickGenerateSession,
 							onClickDeleteSession: sessionId => onClickDeleteSession(profile.id, sessionId),
