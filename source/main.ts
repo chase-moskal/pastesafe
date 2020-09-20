@@ -8,9 +8,9 @@ import {registerComponents} from "metalshop/dist/metalfront/toolbox/register-com
 
 import {PsafeApp} from "./components/psafe-app.js"
 import {makeAppModel} from "./app/make-app-model.js"
-import {PsafeEncryptor} from "./components/psafe-encryptor/psafe-encryptor.js"
-import {PsafeDashboard} from "./components/psafe-dashboard/psafe-dashboard.js"
-import {PsafeSessionManager} from "./components/psafe-dashboard/psafe-session-manager.js"
+import {PsafeEncryptor} from "./components/encryptor/psafe-encryptor.js"
+import {PsafeDashboard} from "./components/dashboard/psafe-dashboard.js"
+import {PsafeSessionManager} from "./components/dashboard/psafe-session-manager.js"
 
 import {theme} from "./theme.js"
 import {AppUpdateListener, AppShare} from "./types.js"
