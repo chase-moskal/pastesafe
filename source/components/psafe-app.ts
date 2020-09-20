@@ -6,12 +6,10 @@ export class PsafeApp extends WiredComponent {
 	render() {
 		const {actions, state} = this.appUpdate
 		if (state.invite) return html`
-			encryptor
-			<psafe-encryptor></psafe-encryptor>
+			<psafe-writing-desk></psafe-writing-desk>
 		`
 		if (state.message) return html`
-			decryptor
-			<psafe-decryptor></psafe-decryptor>
+			<psafe-reading-room></psafe-reading-room>
 		`
 		else return html`
 			<psafe-dashboard .props=${<PsafeDashboardProps>{

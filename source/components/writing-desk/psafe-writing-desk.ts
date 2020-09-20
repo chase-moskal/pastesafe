@@ -5,10 +5,10 @@ import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 import {} from "../../types.js"
 import {Component, html, property} from "../../app/component.js"
 
-import styles from "./encryptor.css.js"
+import styles from "./desk.css.js"
 
  @mixinStyles(styles)
-export class PsafeEncryptor extends Component {
+export class PsafeWritingDesk extends Component {
 
 	render() {
 		return html`

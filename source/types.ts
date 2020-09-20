@@ -75,7 +75,7 @@ export interface PsafeDashboardProps {
 	actions: AppActions
 }
 
-export interface PsafeWritersDeskProps {}
+export interface PsafeWritingDeskProps {}
 export interface PsafeReadingRoomProps {}
 
 export interface SessionManagerProps {
