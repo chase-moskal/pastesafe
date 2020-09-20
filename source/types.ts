@@ -5,13 +5,15 @@ import * as loading from "metalshop/dist/metalfront/toolbox/loading.js"
 import {makeAppModel} from "./app/make-app-model.js"
 
 export type AppModel = ReturnType<typeof makeAppModel>
+export type AppActions = AppModel["actions"]
 
 export type Busy = loading.Load<void>
 
 export interface AppState {
 	busy: Busy
-	invite: {}
 	profiles: Profile[]
+	invite: InviteLinkPayload | undefined
+	message: {} | undefined
 }
 
 export interface AppUpdateListener {
@@ -52,7 +54,7 @@ export interface Session {
 
 export interface AppUpdate {
 	state: AppState
-	actions: AppModel["actions"]
+	actions: AppActions
 }
 
 export interface MinimalStorage {
@@ -66,6 +68,15 @@ export interface AppModelParams {
 	storage: MinimalStorage
 	onUpdate: (update: AppUpdate) => void
 }
+
+export interface PsafeDashboardProps {
+	busy: Busy
+	profiles: Profile[]
+	actions: AppActions
+}
+
+export interface PsafeWritersDeskProps {}
+export interface PsafeReadingRoomProps {}
 
 export interface SessionManagerProps {
 	ready: boolean

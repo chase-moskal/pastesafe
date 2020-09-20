@@ -8,6 +8,7 @@ import {hashAny} from "../toolbox/hash.js"
 import {ProfileDraft, SessionDraft, Profile, AppModelParams, Session, AppState, Busy} from "../types.js"
 
 import {generateKeys} from "./xcrypto.js"
+import {decodeInviteLink} from "./links.js"
 
 export function makeAppModel({storage, onUpdate}: AppModelParams) {
 
@@ -18,11 +19,11 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	let state: AppState = {
 		profiles: [],
 		invite: undefined,
+		message: undefined,
 		busy: loading.ready(),
 	}
 
 	const actions = {
-
 		setBusy(busy: Busy) {
 			state.busy = busy
 		},
@@ -123,9 +124,19 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 		}
 	}
 
+	//
+	//
+	//
+
+	function hashChange(fragment: string) {
+		state.invite = decodeInviteLink({fragment})
+		triggerUpdate()
+	}
+
 	return {
 		actions,
 		refresh,
+		hashChange,
 		start: refresh,
 	}
 }

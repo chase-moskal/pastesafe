@@ -6,6 +6,7 @@ import {share} from "metalshop/dist/metalfront/framework/share.js"
 import {themeComponents} from "metalshop/dist/metalfront/framework/theme-components.js"
 import {registerComponents} from "metalshop/dist/metalfront/toolbox/register-components.js"
 
+import {PsafeApp} from "./components/psafe-app.js"
 import {makeAppModel} from "./app/make-app-model.js"
 import {PsafeEncryptor} from "./components/psafe-encryptor/psafe-encryptor.js"
 import {PsafeDashboard} from "./components/psafe-dashboard/psafe-dashboard.js"
@@ -22,6 +23,12 @@ void async function main() {
 		onUpdate: appUpdate.publish,
 	})
 
+	const onHashChange = () => app.hashChange(location.hash)
+	window.addEventListener(
+		"hashchange",
+		onHashChange,
+	)
+
 	const appShare: AppShare = Object.freeze({
 		onUpdate: appUpdate.subscribe
 	})
@@ -30,11 +37,13 @@ void async function main() {
 		return objectMap(components, Component => share(Component, () => appShare))
 	}
 
-	registerComponents(themeComponents(theme, wireComponentShares({
+	registerComponents(themeComponents(theme, {
+		...wireComponentShares({PsafeApp}),
 		PsafeEncryptor,
 		PsafeDashboard,
 		PsafeSessionManager,
-	})))
+	}))
 
 	app.start()
+	onHashChange()
 }()

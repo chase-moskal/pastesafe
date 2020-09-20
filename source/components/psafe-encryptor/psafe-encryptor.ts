@@ -11,8 +11,6 @@ import styles from "./encryptor.css.js"
 export class PsafeEncryptor extends Component {
 
 	render() {
-		const {state, actions} = this.appUpdate
-		const {invite} = state
 		return html`
 			<div>
 				encryptor!

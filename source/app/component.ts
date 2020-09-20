@@ -10,7 +10,9 @@ const _appUpdate = Symbol()
 const _clear = Symbol()
 const _unsubscribe = Symbol()
 
-export class Component extends LitElement {
+export class Component extends LitElement {}
+
+export class WiredComponent extends Component {
 	readonly share: AppShare
 
 	get appUpdate(): AppUpdate {
