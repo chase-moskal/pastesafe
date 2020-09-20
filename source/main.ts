@@ -7,6 +7,7 @@ import {themeComponents} from "metalshop/dist/metalfront/framework/theme-compone
 import {registerComponents} from "metalshop/dist/metalfront/toolbox/register-components.js"
 
 import {makeAppModel} from "./app/make-app-model.js"
+import {PsafeEncryptor} from "./components/psafe-encryptor/psafe-encryptor.js"
 import {PsafeDashboard} from "./components/psafe-dashboard/psafe-dashboard.js"
 import {PsafeSessionManager} from "./components/psafe-dashboard/psafe-session-manager.js"
 
@@ -30,6 +31,7 @@ void async function main() {
 	}
 
 	registerComponents(themeComponents(theme, wireComponentShares({
+		PsafeEncryptor,
 		PsafeDashboard,
 		PsafeSessionManager,
 	})))
