@@ -12,8 +12,8 @@ export type Busy = loading.Load<void>
 export interface AppState {
 	busy: Busy
 	profiles: Profile[]
-	invite: InviteLinkPayload | undefined
-	message: {} | undefined
+	invite: InviteLinkPayload
+	message: MessageLinkPayload
 }
 
 export interface AppUpdateListener {
@@ -75,8 +75,13 @@ export interface PsafeDashboardProps {
 	actions: AppActions
 }
 
-export interface PsafeWritingDeskProps {}
-export interface PsafeReadingRoomProps {}
+export interface PsafeWritingDeskProps {
+	invite: InviteLinkPayload
+}
+
+export interface PsafeReadingRoomProps {
+	message: MessageLinkPayload
+}
 
 export interface SessionManagerProps {
 	ready: boolean
@@ -96,4 +101,9 @@ export type ByteDecoder = (encoded: string) => Uint8Array
 export interface InviteLinkPayload {
 	sessionId: string
 	sessionPublicKey: JsonWebKey
+}
+
+export interface MessageLinkPayload {
+	sessionId: string
+	data: string
 }
