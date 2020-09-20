@@ -1,5 +1,5 @@
 
-import * as bytes from "../toolbox/bytes.js"
+import * as bytes from "./bytes.js"
 
 const algo: RsaHashedKeyGenParams = {
 	name: "RSA-OAEP",

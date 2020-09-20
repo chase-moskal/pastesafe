@@ -2,12 +2,13 @@
 import {makeJsonStorage} from "metalshop/dist/toolbox/json-storage.js"
 import * as loading from "metalshop/dist/metalfront/toolbox/loading.js"
 
-import {copy} from "../toolbox/copy.js"
-import {randex} from "../toolbox/randex.js"
-import {hashAny} from "../toolbox/hash.js"
 import {ProfileDraft, SessionDraft, Profile, AppModelParams, Session, AppState, Busy} from "../types.js"
 
-import {generateKeys} from "./xcrypto.js"
+import {copy} from "../toolbox/copy.js"
+import {hashAny} from "../toolbox/hash.js"
+import {randex} from "../toolbox/randex.js"
+import {generateKeys} from "../toolbox/xcrypto.js"
+
 import {decodeInviteLink} from "./links.js"
 
 export function makeAppModel({storage, onUpdate}: AppModelParams) {
