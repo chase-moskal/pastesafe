@@ -45,7 +45,7 @@ export default css`
 
 .stats {
 	margin-top: 0.5em;
-	padding-left: 2.5em;
+	padding-left: 0.5em;
 }
 
 .stats > * + * {
@@ -75,7 +75,11 @@ export default css`
 
 @media (max-width: 700px) {
 	.textinput, .resultbox {
+		width: 100%;
 		min-width: unset;
+	}
+	.link {
+		font-size: 1em;
 	}
 }
 
