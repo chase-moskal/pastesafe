@@ -95,18 +95,17 @@ export class PsafeWritingDesk extends Component {
 					${messageLink ? html`
 						<p class=link>
 							${lockIcon}
-							<a title="encrpyted message link" href=${messageLink}>
+							<a target=_blank href=${messageLink} title="encrpyted message link">
 								${messageLinkPreview}
 							</a>
 						</p>
 						<div class=stats data-coolinputs>
-							<p>your message is encrypted in this big link</p>
+							<p>your message is encrypted in this link. whoever sent you the invite has the key to decrypt it.</p>
 							${clipboardSupport ? html`
 								<p>now just <button class=copybutton title="copy link to clipboard" ?data-recently=${recentlyCopied} @click=${handleClickCopy}>${clippyIcon} ${recentlyCopied ? "copied" : "copy"}</button> and send back this link</p>
 							` : html`
 								<p>now copy this link and send it back</p>
 							`}
-							<p>whoever sent you the invite has the key to decrypt the link</p>
 						</div>
 					` : null}
 				</div>

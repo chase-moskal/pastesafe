@@ -66,7 +66,7 @@ export class PsafeSessionManager extends Component {
 						<p>
 							<strong>link</strong>
 							<span>
-								<a href=${inviteLink}>
+								<a target=_blank href=${inviteLink}>
 									${inviteLinkPreview}
 								</a>
 							</span>
