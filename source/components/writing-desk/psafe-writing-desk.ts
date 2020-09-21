@@ -48,10 +48,10 @@ export class PsafeWritingDesk extends Component {
 	})
 
 	 @property({type: Number})
-	private lastCopy: number = 0
+	private previousCopy: number = 0
 
 	get recentlyCopied() {
-		const since = Date.now() - this.lastCopy
+		const since = Date.now() - this.previousCopy
 		return since < clipboardAnim
 	}
 
@@ -61,15 +61,18 @@ export class PsafeWritingDesk extends Component {
 
 		const handleTextChange = (event: InputEvent) => {
 			const target = <HTMLTextAreaElement>event.target
+			const {message: previousMessage} = this
 			this.message = target.value
-			this.messageLink = undefined
-			this.debouncer.queue()
+			if (this.message !== previousMessage) {
+				this.messageLink = undefined
+				this.debouncer.queue()
+			}
 		}
 
 		const handleClickCopy = async() => {
 			if (messageLink) {
 				await navigator.clipboard.writeText(messageLink)
-				this.lastCopy = Date.now()
+				this.previousCopy = Date.now()
 				setTimeout(() => this.requestUpdate(), clipboardAnim + 1)
 			}
 		}
