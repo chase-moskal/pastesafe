@@ -1,4 +1,7 @@
 
+import {test} from "cynic"
+import suite from "./tests.test.js"
+
 import {pubsub} from "metalshop/dist/toolbox/pubsub.js"
 import {objectMap} from "metalshop/dist/toolbox/object-map.js"
 import {ConstructorFor} from "metalshop/dist/metalfront/types.js"
@@ -46,4 +49,12 @@ void async function main() {
 
 	app.start()
 	onHashChange()
+}()
+
+void async function runTestsOnLocalhost() {
+	if (/^https?:\/\/localhost(|:\d{2,4})$/.test(location.origin)) {
+		const {report, errors} = await test("pastesafe test suite", suite)
+		console.log(report)
+		for (const error of errors) console.error(error)
+	}
 }()

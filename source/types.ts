@@ -105,5 +105,5 @@ export interface InviteLinkPayload {
 
 export interface MessageLinkPayload {
 	sessionId: string
-	data: string
+	cipherText: string
 }
