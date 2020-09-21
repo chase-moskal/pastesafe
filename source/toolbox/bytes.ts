@@ -15,8 +15,9 @@ export function fromHex(hex: string): Uint8Array {
 }
 
 export function toBase64(bytes: Uint8Array) {
+	const binary = String.fromCharCode.apply(null, bytes)
 	return addEqualsPadding(
-		btoa((new TextDecoder()).decode(bytes))
+		btoa(binary)
 			.replace(/=/g, "")
 			.replace(/\+/g, "-")
 			.replace(/\//g, "_")
