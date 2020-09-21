@@ -26,7 +26,7 @@ void async function main() {
 		onUpdate: appUpdate.publish,
 	})
 
-	const onHashChange = () => app.hashChange(location.hash)
+	const onHashChange = () => app.hashChange(location.href)
 	window.addEventListener(
 		"hashchange",
 		onHashChange,

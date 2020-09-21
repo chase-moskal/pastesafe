@@ -3,9 +3,8 @@ import * as loading from "metalshop/dist/metalfront/toolbox/loading.js"
 import {makeDebouncer} from "metalshop/dist/metalfront/toolbox/debouncer.js"
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
-import {encrypt} from "../../toolbox/xcrypto.js"
 import {PsafeWritingDeskProps} from "../../types.js"
-import {encodeMessageLink, hintSize} from "../../app/links.js"
+import {encryptMessageLink, hintSize} from "../../app/links.js"
 import {Component, html, property} from "../../app/component.js"
 
 import styles from "./desk.css.js"
@@ -17,7 +16,7 @@ export class PsafeWritingDesk extends Component {
 	props: PsafeWritingDeskProps
 
 	 @property({type: String})
-	text: string = ""
+	message: string = ""
 
 	 @property({type: String})
 	messageLink: string = ""
@@ -33,17 +32,13 @@ export class PsafeWritingDesk extends Component {
 	private debouncer = makeDebouncer({
 		delay: 500,
 		action: async() => {
-			const {text} = this
-			const {sessionId, sessionPublicKey: publicKey} = this.props.invite
-			const cipherText = await encrypt({text, publicKey})
-			const link = encodeMessageLink({
+			const {message} = this
+			const {invite} = this.props
+			this.messageLink = await encryptMessageLink({
+				invite,
 				baseUrl: location.origin + location.pathname,
-				payload: {
-					sessionId,
-					cipherText,
-				}
+				message,
 			})
-			this.messageLink = link
 		}
 	})
 
@@ -53,7 +48,7 @@ export class PsafeWritingDesk extends Component {
 
 		const handleTextChange = (event: InputEvent) => {
 			const target = <HTMLTextAreaElement>event.target
-			this.text = target.value
+			this.message = target.value
 			this.debouncer.queue()
 		}
 

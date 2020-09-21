@@ -2,16 +2,17 @@
 import {Suite, expect} from "cynic"
 
 import {randex} from "./toolbox/randex.js"
-import {generateKeys, encrypt} from "./toolbox/xcrypto.js"
-import {encodeInviteLink, decodeInviteLink, encodeMessageLink} from "./app/links.js"
+import {toHex, fromHex} from "./toolbox/bytes.js"
+import {generateSessionKeys} from "./toolbox/xcrypto.js"
+import {encodeInviteLink, decodeInviteLink, encryptMessageLink, decryptMessageLink} from "./app/links.js"
+
+const baseUrl = "https://pastesafe.org/"
 
 export default <Suite>{
 	"crypto": {
-		"inivte links, encoding and decoding": async() => {
-			const baseUrl = "https://pastesafe.org/"
+		"end to end": async() => {
 			const sessionId = randex()
-			const {publicKey, privateKey} = await generateKeys()
-
+			const {publicKey, privateKey} = await generateSessionKeys()
 			const inviteLink = encodeInviteLink({
 				baseUrl,
 				payload: {
@@ -19,38 +20,51 @@ export default <Suite>{
 					sessionPublicKey: publicKey,
 				},
 			})
-			const invite = decodeInviteLink({
-				fragment: new URL(inviteLink).hash
-			})
-
-			const text = "abc123"
-			const cipherText = await encrypt({text, publicKey})
-			const messageLink = encodeMessageLink({
+			const invite = decodeInviteLink(inviteLink)
+			const message = "abc123"
+			const messageLink = await encryptMessageLink({
+				invite,
 				baseUrl,
-				payload: {
-					sessionId,
-					cipherText,
-				},
+				message,
 			})
-
+			const message2 = await decryptMessageLink({
+				link: messageLink,
+				getPrivateKey: async id => privateKey,
+			})
 			return (
 				expect(invite.sessionId).equals(sessionId)
 				&& expect(messageLink).ok()
+				&& expect(message2).equals(message)
 			)
 		},
-		"generic encryption": async() => {
-			const {publicKey} = await generateKeys()
-			async function encryptLength(n: number): Promise<string> {
-				let text = ""
-				for (let i = 0; i < n; i++) text += "a"
-				return encrypt({text, publicKey})
-			}
-			const minisuite = {}
-			for (const n of [0, 10, 380, 385, 1000])
-				minisuite[`encrypt ${n} characters`] = async() => expect(
-					await encryptLength(n)
-				).ok()
-			return minisuite
-		}
+		"message links": async() => {
+			const {publicKey, privateKey} = await generateSessionKeys()
+			const sessionId = randex()
+			const message = "abc123"
+			const link = await encryptMessageLink({
+				message,
+				baseUrl,
+				invite: {sessionId, sessionPublicKey: publicKey},
+			})
+			const message2 = await decryptMessageLink({
+				link,
+				getPrivateKey: async() => privateKey,
+			})
+			return expect(message).equals(message2)
+		},
+		"hex back-and-forth works": async() => {
+			const {buffer} = crypto.getRandomValues(new Uint8Array(8))
+			const hex = toHex(new Uint8Array(buffer))
+			return expect(hex).equals(
+				toHex(fromHex(hex))
+			)
+		},
+		// "base64 back-and-forth works": async() => {
+		// 	const {buffer} = crypto.getRandomValues(new Uint8Array(8))
+		// 	const base64 = toBase64(new Uint8Array(buffer))
+		// 	return expect(base64).equals(
+		// 		toBase64(fromBase64(base64))
+		// 	)
+		// },
 	},
 }

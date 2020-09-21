@@ -7,7 +7,7 @@ import {ProfileDraft, SessionDraft, Profile, AppModelParams, Session, AppState, 
 import {copy} from "../toolbox/copy.js"
 import {hashAny} from "../toolbox/hash.js"
 import {randex} from "../toolbox/randex.js"
-import {generateKeys} from "../toolbox/xcrypto.js"
+import {generateSessionKeys} from "../toolbox/xcrypto.js"
 
 import {decodeInviteLink} from "./links.js"
 
@@ -53,7 +53,7 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 				id: randex(),
 				label: draft.label,
 				created: Date.now(),
-				keys: await generateKeys(),
+				keys: await generateSessionKeys(),
 			}
 			const profile = state.profiles.find(p => p.id === draft.profileId)
 			profile.sessions.push(session)
@@ -126,11 +126,11 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	}
 
 	//
-	//
+	// handle link change
 	//
 
-	function hashChange(fragment: string) {
-		state.invite = decodeInviteLink({fragment})
+	function hashChange(link: string) {
+		state.invite = decodeInviteLink(link)
 		triggerUpdate()
 	}
 

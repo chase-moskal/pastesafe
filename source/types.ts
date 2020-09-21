@@ -95,9 +95,6 @@ export interface SessionManagerProps {
 // links
 //
 
-export type ByteEncoder = (bytes: Uint8Array) => string
-export type ByteDecoder = (encoded: string) => Uint8Array
-
 export interface InviteLinkPayload {
 	sessionId: string
 	sessionPublicKey: JsonWebKey
@@ -105,5 +102,6 @@ export interface InviteLinkPayload {
 
 export interface MessageLinkPayload {
 	sessionId: string
-	cipherText: string
+	aesCiphertext: string
+	messageCiphertext: string
 }
