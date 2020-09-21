@@ -18,6 +18,15 @@ export class PsafeApp extends WiredComponent {
 		else if (state.message) return html`
 			<psafe-reading-room .props=${<PsafeReadingRoomProps>{
 				message: state.message,
+				querySession: (sessionId: string) => {
+					const profile = state.profiles.find(p => p.sessions.find(s => s.id === sessionId))
+					if (profile) {
+						const session = profile.sessions.find(s => s.id === sessionId)
+						if (session) {
+							return {profile, session}
+						}
+					}
+				},
 			}}></psafe-reading-room>
 		`
 		else return html`

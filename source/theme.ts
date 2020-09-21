@@ -83,4 +83,17 @@ svg {
 	height: 1em;
 }
 
+/* cooltextareas */
+
+
+textarea[data-cooltextarea] {
+	font: inherit;
+	width: 100%;
+	min-height: 8em;
+	font-size: 1.2em;
+	color: white;
+	background: #0006;
+	border: 1px solid #fff6;
+}
+
 `

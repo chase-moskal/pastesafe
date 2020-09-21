@@ -13,19 +13,9 @@ export default css`
 	flex: 1 0 auto;
 }
 
-.textinput, .resultbox {
+textarea, .resultbox {
 	min-width: 30em;
 	padding: 0.5em 1em;
-}
-
-.textinput {
-	font: inherit;
-	width: 100%;
-	min-height: 8em;
-	font-size: 1.2em;
-	color: white;
-	background: #0006;
-	border: 1px solid #fff6;
 }
 
 .resultbox {
@@ -74,7 +64,7 @@ export default css`
 }
 
 @media (max-width: 700px) {
-	.textinput, .resultbox {
+	textarea, .resultbox {
 		width: 100%;
 		min-width: unset;
 	}

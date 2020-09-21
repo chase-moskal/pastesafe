@@ -85,7 +85,7 @@ export class PsafeWritingDesk extends Component {
 			<div class=container>
 				<div class=inputbox>
 					<textarea
-						class=textinput
+						data-cooltextarea
 						placeholder="enter your secret response"
 						@change=${handleTextChange}
 						@keyup=${handleTextChange}

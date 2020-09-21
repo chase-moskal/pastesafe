@@ -1,6 +1,6 @@
 
-import xIcon from "../../icons/x.svg.js"
 import {html, repeat} from "../../app/component.js"
+import trashcanIcon from "../../icons/trashcan.svg.js"
 import {formatDate} from "../../toolbox/format-date.js"
 import {Profile, SessionDraft, SessionManagerProps} from "../../types.js"
 
@@ -40,7 +40,7 @@ export function renderProfileList({
 								data-x
 								title="delete profile"
 								@click=${() => onClickDeleteProfile(profile.id)}>
-									${xIcon}
+									${trashcanIcon}
 							</button>
 						</div>
 					</div>

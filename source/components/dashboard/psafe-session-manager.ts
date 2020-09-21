@@ -6,8 +6,8 @@ import {encodeInviteLink, hintSize} from "../../app/links.js"
 import {Component, html, property, repeat} from "../../app/component.js"
 import {Session, SessionDraft, SessionManagerProps} from "../../types.js"
 
-import xIcon from "../../icons/x.svg.js"
 import keyIcon from "../../icons/key.svg.js"
+import trashcanIcon from "../../icons/trashcan.svg.js"
 
 import {styles} from "./session-styles.js"
 import {renderLabelInput} from "./render-label-input.js"
@@ -77,7 +77,7 @@ export class PsafeSessionManager extends Component {
 							data-x
 							title="delete session"
 							@click=${() => onClickDeleteSession(session.id)}>
-								${xIcon}
+								${trashcanIcon}
 						</button>
 					</div>
 				</div>

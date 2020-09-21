@@ -81,6 +81,10 @@ export interface PsafeWritingDeskProps {
 
 export interface PsafeReadingRoomProps {
 	message: MessageLinkPayload
+	querySession: (sessionId: string) => {
+		profile: Profile
+		session: Session
+	}
 }
 
 export interface SessionManagerProps {
