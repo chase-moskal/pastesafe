@@ -60,10 +60,7 @@ export async function encryptMessageLink({baseUrl, message, invite}: {
 	return `${baseUrl}${sep}#message-${hint}${encoded}`
 }
 
-export async function decryptMessageLink({link, getPrivateKey}: {
-		link: string
-		getPrivateKey: (sessionId: string) => Promise<JsonWebKey | undefined>
-	}): Promise<string> {
+export function decodeMessageLink(link: string): MessageLinkPayload {
 	const fragment = new URL(link).hash
 	const parse = messageRegex.exec(fragment)
 	if (parse) {
@@ -71,15 +68,22 @@ export async function decryptMessageLink({link, getPrivateKey}: {
 		const bytes = fromHex(encoded)
 		const json = (new TextDecoder).decode(bytes)
 		const payload: MessageLinkPayload = JSON.parse(json)
-		const aesCipherbinary = fromHex(payload.aesCiphertext).buffer
-		const messageCipherbinary = fromHex(payload.messageCiphertext).buffer
-		const privateKey = await getPrivateKey(payload.sessionId)
-		if (!privateKey) throw new Error("no session")
-		const message = await decryptMessage({
-			privateKey,
-			aesCipherbinary,
-			messageCipherbinary,
-		})
-		return message
+		return payload
 	}
+}
+
+export async function decryptMessageLink({payload, getPrivateKey}: {
+		payload: MessageLinkPayload
+		getPrivateKey: (sessionId: string) => Promise<JsonWebKey | undefined>
+	}): Promise<string> {
+	const aesCipherbinary = fromHex(payload.aesCiphertext).buffer
+	const messageCipherbinary = fromHex(payload.messageCiphertext).buffer
+	const privateKey = await getPrivateKey(payload.sessionId)
+	if (!privateKey) throw new Error("no session")
+	const message = await decryptMessage({
+		privateKey,
+		aesCipherbinary,
+		messageCipherbinary,
+	})
+	return message
 }

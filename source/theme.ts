@@ -23,7 +23,7 @@ svg {
 /* coolinputs */
 
 [data-coolinputs] {
-	font-size: 0.8em;
+	font-size: 0.9em;
 }
 
 [data-coolinputs] input[type=text],

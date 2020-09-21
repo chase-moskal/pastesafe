@@ -53,6 +53,7 @@ export class PsafeWritingDesk extends Component {
 		}
 
 		return html`
+			<h2>writing desk - new style and layout coming soon</h2>
 			<textarea
 				@change=${handleTextChange}
 				@keyup=${handleTextChange}

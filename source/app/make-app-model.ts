@@ -9,7 +9,7 @@ import {hashAny} from "../toolbox/hash.js"
 import {randex} from "../toolbox/randex.js"
 import {generateSessionKeys} from "../toolbox/xcrypto.js"
 
-import {decodeInviteLink} from "./links.js"
+import {decodeInviteLink, decodeMessageLink, decryptMessageLink} from "./links.js"
 
 export function makeAppModel({storage, onUpdate}: AppModelParams) {
 
@@ -129,8 +129,9 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	// handle link change
 	//
 
-	function hashChange(link: string) {
+	async function hashChange(link: string) {
 		state.invite = decodeInviteLink(link)
+		state.message = decodeMessageLink(link)
 		triggerUpdate()
 	}
 

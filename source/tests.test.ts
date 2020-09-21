@@ -4,7 +4,7 @@ import {Suite, expect} from "cynic"
 import {randex} from "./toolbox/randex.js"
 import {toHex, fromHex} from "./toolbox/bytes.js"
 import {generateSessionKeys} from "./toolbox/xcrypto.js"
-import {encodeInviteLink, decodeInviteLink, encryptMessageLink, decryptMessageLink} from "./app/links.js"
+import {encodeInviteLink, decodeInviteLink, encryptMessageLink, decryptMessageLink, decodeMessageLink} from "./app/links.js"
 
 const baseUrl = "https://pastesafe.org/"
 
@@ -27,8 +27,9 @@ export default <Suite>{
 				baseUrl,
 				message,
 			})
+			const messagePayload = decodeMessageLink(messageLink)
 			const message2 = await decryptMessageLink({
-				link: messageLink,
+				payload: messagePayload,
 				getPrivateKey: async id => privateKey,
 			})
 			return (
@@ -46,8 +47,9 @@ export default <Suite>{
 				baseUrl,
 				invite: {sessionId, sessionPublicKey: publicKey},
 			})
+			const payload = decodeMessageLink(link)
 			const message2 = await decryptMessageLink({
-				link,
+				payload,
 				getPrivateKey: async() => privateKey,
 			})
 			return expect(message).equals(message2)
