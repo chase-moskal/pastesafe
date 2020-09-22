@@ -1,4 +1,7 @@
 
+const hash = "SHA-256"
+const modulusLength = 2048
+
 export async function generateSessionKeys(): Promise<{
 		publicKey: JsonWebKey
 		privateKey: JsonWebKey
@@ -7,8 +10,8 @@ export async function generateSessionKeys(): Promise<{
 	const {privateKey, publicKey} = <CryptoKeyPair>await crypto.subtle.generateKey(
 		{
 			name: "RSA-OAEP",
-			modulusLength: 4096,
-			hash: "SHA-512",
+			modulusLength,
+			hash,
 			publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
 		},
 		extractable,
@@ -53,7 +56,7 @@ export async function encryptMessage({message, publicKey}: {
 	const rsaCryptoKey = await crypto.subtle.importKey(
 		"jwk",
 		publicKey,
-		{name: "RSA-OAEP", hash: "SHA-512"},
+		{name: "RSA-OAEP", hash},
 		false,
 		["encrypt"]
 	)
@@ -106,7 +109,7 @@ export async function decryptMessage({
 	const privateCryptoKey = await crypto.subtle.importKey(
 		"jwk",
 		privateKey,
-		{name: "RSA-OAEP", hash: "SHA-512"},
+		{name: "RSA-OAEP", hash},
 		false,
 		["decrypt"]
 	)
