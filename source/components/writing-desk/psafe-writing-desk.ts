@@ -116,6 +116,7 @@ export class PsafeWritingDesk extends Component {
 							` : html`
 								<p>now copy the link and send it back</p>
 							`}
+							<p><strong>length</strong> ${messageLink.length}</p>
 						</div>
 					` : null}
 				</div>
