@@ -61,11 +61,6 @@ body {
 	padding-left: 1.5em;
 }
 
-.wipnote {
-	color: orange;
-	text-shadow: 1px 2px 3px black;
-}
-
 @media (max-width: 700px) {
 	body {
 		width: 100%;
@@ -125,4 +120,21 @@ a.lowkey {
 .sitefooter {
 	opacity: 0.8;
 	background: rgba(0,0,0, 0.3);
+}
+
+/*
+========================================================================
+:: DOODADS :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+========================================================================
+*/
+
+.disclaimer {
+	padding: 0.2em 0.6em;
+	background: #f902;
+	text-shadow: 1px 2px 3px #0003;
+}
+
+.wipnote {
+	color: orange;
+	text-shadow: 1px 2px 3px #0008;
 }

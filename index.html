@@ -14,8 +14,8 @@
 	<body>
 		<header class=siteheader>
 			<div class=title>
-				<h1><a href="https://pastesafe.org/">pastesafe</a> <span class=tag>coming soon</span></h1>
-				<p>open source encryption</p>
+				<h1><a href="https://pastesafe.org/">pastesafe</a> <span class=tag>alpha</span></h1>
+				<p>talk secretly in public</p>
 			</div>
 		</header>
 		<main class=sitemain>
@@ -23,23 +23,34 @@
 		</main>
 		<footer class=sitefooter>
 			<div class=stdcontent>
-				<p class=wipnote><strong>WORK IN PROGRESS NOTE</strong> — pastesafe doesn't work yet. we're actively putting it together, so check back soon!</p>
-				<h2>pastesafe lets you talk secretly in public</h2>
-				<p>exchange private information via encrypted links</p>
-				<h4>all pastesafe communications are initiated by an invite link</h4>
+				<h2>pastesafe helps people share secrets</h2>
+				<p>pastesafe is a free public-key crpyto app that empowers anybody to communicate privately over any untrusted public forum — simply by exchanging links packed with encrypted messages</p>
+				<p>pastesafe might be handy if you need somebody to send you a password. or if you want to exchange emails privately on a public message board. youtube doesn't support private messages anymore, so a pastesafe invite to share emails could help you get in touch with commenters</p>
+				<h3>all pastesafe communications are initiated by an invite link</h3>
 				<ol>
 					<li>bob wants to receive secret info from alice. so, bob creates a pastesafe session and sends her the invite link</li>
 					<li>alice clicks the invite link, and is prompted to enter her secret info for bob</li>
 					<li>pastesafe packs the secret response into an encrypted link, which only bob can decode</li>
 					<li>alice sends back this new response link, and bob clicks to decode it</li>
 				</ol>
-				<h4>more about pastesafe</h4>
+				<h3>more about pastesafe</h3>
 				<ul>
-					<li>100% open source <a href="https://github.com/chase-moskal/pastesafe">on github</a>, let's collaborate!</li>
+					<li>100% open source <a target=_blank href="https://github.com/chase-moskal/pastesafe">on github</a> <a class=lowkey target=_blank href="https://github.com/chase-moskal/pastesafe/blob/master/LICENSE">(isc licensed)</a></li>
 					<li>100% serverless clientside webcrypto, keys in localstorage</li>
-					<li>asymmetric public key cryptography, rsa-oaep 4096</li>
-					<li>made with ❤️ by <a class=lowkey href="https://chasemoskal.com/">chase moskal</a></li>
+					<li>made with ❤️ by <a class=lowkey target=_blank href="https://chasemoskal.com/">chase moskal</a></li>
 				</ul>
+				<h3>crypto details</h3>
+				<ul>
+					<li>each session on your pastesafe dashboard represents an rsa keypair you have loaded in your browser's localstorage. if you delete them, they're gone forever. don't clear your cookies because you'll loose your sessions permanently</li>
+					<li>the invite link contains the session-id and the public-key</li>
+					<li>responses are encrypted with aes-gcm-256, the key for that is encrypted with the rsa public key</li>
+					<li>if you have a copy of the session in your localstorage, you can decrypt the message</li>
+					<li><strong>coming soon</strong> mechanisms to download/upload profiles in and out of the browser</li>
+				</ul>
+				<div class=disclaimer>
+					<h3 class=wipnote>alpha warning</h3>
+					<p><strong>use pastesafe at your own risk.</strong> pastesafe is experimental pre-release technology. it has not yet been comprehensively reviewed by security experts. pastesafe cannot guarantee the safety of your data. consider sessions to be temporary because they will permanently break with coming updates</p>
+				</div>
 			</div>
 		</footer>
 	</body>

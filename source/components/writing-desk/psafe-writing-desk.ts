@@ -79,8 +79,8 @@ export class PsafeWritingDesk extends Component {
 
 		return html`
 			<div class=leadup>
-				<h2>somebody asked you for secret information</h2>
-				<p>pastesafe will encrypt your response</p>
+				<h2>send your secret information</h2>
+				<p>if you trust the invite, pastesafe is ready to encrypt your response below</p>
 			</div>
 			<div class=container>
 				<div class=inputbox>
@@ -100,11 +100,21 @@ export class PsafeWritingDesk extends Component {
 							</a>
 						</p>
 						<div class=stats data-coolinputs>
-							<p>your message is encrypted in this link. whoever sent you the invite has the key to decrypt it.</p>
+							<p>your message is encrypted in this link. the other person already has a key to decrypt it.</p>
 							${clipboardSupport ? html`
-								<p>now just <button class=copybutton title="copy link to clipboard" ?data-recently=${recentlyCopied} @click=${handleClickCopy}>${clippyIcon} ${recentlyCopied ? "copied" : "copy"}</button> and send back this link</p>
+								<p>
+									now just
+									<button
+										class=copybutton
+										title="copy link to clipboard"
+										?data-recently=${recentlyCopied}
+										@click=${handleClickCopy}>
+											${clippyIcon} ${recentlyCopied ? "copied" : "copy"}
+									</button>
+									the link and send it back
+								</p>
 							` : html`
-								<p>now copy this link and send it back</p>
+								<p>now copy the link and send it back</p>
 							`}
 						</div>
 					` : null}
