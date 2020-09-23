@@ -12,7 +12,7 @@ export type Busy = loading.Load<void>
 export interface AppState {
 	busy: Busy
 	profiles: Profile[]
-	invite: InviteLinkPayload
+	invite: InvitePayload
 	encrypted: EncryptedMessage
 }
 
@@ -76,7 +76,7 @@ export interface PsafeDashboardProps {
 }
 
 export interface PsafeWritingDeskProps {
-	invite: InviteLinkPayload
+	invite: InvitePayload
 }
 
 export interface PsafeReadingRoomProps {
@@ -99,7 +99,7 @@ export interface SessionManagerProps {
 // links
 //
 
-export interface InviteLinkPayload {
+export interface InvitePayload {
 	sessionId: string
 	sessionPublicKey: JsonWebKey
 }
@@ -108,4 +108,13 @@ export interface EncryptedMessage {
 	sessionId: string
 	aesCipherbinary: ArrayBuffer
 	messageCipherbinary: ArrayBuffer
+}
+
+export interface InviteLink extends InvitePayload {
+	baseUrl: string
+}
+
+
+export interface MessageLink extends EncryptedMessage {
+	baseUrl: string
 }

@@ -2,14 +2,14 @@
 import * as tinybin from "../toolbox/tinybin.js"
 import {toHex, fromHex} from "../toolbox/bytes.js"
 import {encryptMessage, decryptMessage} from "../toolbox/xcrypto.js"
-import {InviteLinkPayload, EncryptedMessage} from "../types.js"
+import {InvitePayload, EncryptedMessage, MessageLink} from "../types.js"
 
 export const messagePrefix = "m"
 export const messageRegex = /^#?m([\S]+)$/
 
 export async function encryptMessageData({message, invite}: {
 		message: string
-		invite: InviteLinkPayload
+		invite: InvitePayload
 	}): Promise<EncryptedMessage> {
 	const {
 		aesCipherbinary,
@@ -25,8 +25,14 @@ export async function encryptMessageData({message, invite}: {
 	}
 }
 
-export function encodeMessageLink({baseUrl, sessionId, messageCipherbinary, aesCipherbinary}: EncryptedMessage & {baseUrl: string}): string {
+export function encodeMessageLink({
+		baseUrl,
+		sessionId,
+		messageCipherbinary,
+		aesCipherbinary,
+	}: MessageLink): string {
 	if (!baseUrl.endsWith("/")) baseUrl += "/"
+
 	const binarySessionId = fromHex(sessionId).buffer
 
 	const randomByte = crypto.getRandomValues(new Uint8Array(1))[0]
@@ -44,7 +50,7 @@ export function encodeMessageLink({baseUrl, sessionId, messageCipherbinary, aesC
 	return `${baseUrl}#${messagePrefix}${encoded}`
 }
 
-export function decodeMessageLink(link: string): EncryptedMessage & {baseUrl: string} {
+export function decodeMessageLink(link: string): MessageLink {
 	const url = new URL(link)
 	const parse = messageRegex.exec(url.hash)
 	if (parse) {
