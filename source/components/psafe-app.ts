@@ -15,9 +15,9 @@ export class PsafeApp extends WiredComponent {
 				invite: state.invite,
 			}}></psafe-writing-desk>
 		`
-		else if (state.message) return html`
+		else if (state.encrypted) return html`
 			<psafe-reading-room .props=${<PsafeReadingRoomProps>{
-				message: state.message,
+				encrypted: state.encrypted,
 				querySession: (sessionId: string) => {
 					const profile = state.profiles.find(p => p.sessions.find(s => s.id === sessionId))
 					if (profile) {

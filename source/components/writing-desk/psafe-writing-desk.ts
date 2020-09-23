@@ -44,8 +44,8 @@ export class PsafeWritingDesk extends Component {
 				invite,
 			})
 			this.messageLink = encodeMessageLink({
-				encrypted,
 				baseUrl: location.origin + location.pathname,
+				...encrypted,
 			})
 		}
 	})

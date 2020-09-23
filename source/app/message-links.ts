@@ -2,7 +2,7 @@
 import * as tinybin from "../toolbox/tinybin.js"
 import {toHex, fromHex} from "../toolbox/bytes.js"
 import {encryptMessage, decryptMessage} from "../toolbox/xcrypto.js"
-import {InviteLinkPayload, EncryptedMessage, MessageLinkBreakdown} from "../types.js"
+import {InviteLinkPayload, EncryptedMessage} from "../types.js"
 
 export const messagePrefix = "m"
 export const messageRegex = /^#?m([\S]+)$/
@@ -25,9 +25,9 @@ export async function encryptMessageData({message, invite}: {
 	}
 }
 
-export function encodeMessageLink({baseUrl, encrypted}: MessageLinkBreakdown): string {
+export function encodeMessageLink({baseUrl, sessionId, messageCipherbinary, aesCipherbinary}: EncryptedMessage & {baseUrl: string}): string {
 	if (!baseUrl.endsWith("/")) baseUrl += "/"
-	const binarySessionId = fromHex(encrypted.sessionId).buffer
+	const binarySessionId = fromHex(sessionId).buffer
 
 	const randomByte = crypto.getRandomValues(new Uint8Array(1))[0]
 	const randomSize = Math.floor((randomByte / 8) + 1)
@@ -35,8 +35,8 @@ export function encodeMessageLink({baseUrl, encrypted}: MessageLinkBreakdown): s
 
 	const binary = tinybin.sequence([
 		random.buffer,
-		encrypted.messageCipherbinary,
-		encrypted.aesCipherbinary,
+		messageCipherbinary,
+		aesCipherbinary,
 		binarySessionId,
 	])
 
@@ -44,7 +44,7 @@ export function encodeMessageLink({baseUrl, encrypted}: MessageLinkBreakdown): s
 	return `${baseUrl}#${messagePrefix}${encoded}`
 }
 
-export function decodeMessageLink(link: string): MessageLinkBreakdown {
+export function decodeMessageLink(link: string): EncryptedMessage & {baseUrl: string} {
 	const url = new URL(link)
 	const parse = messageRegex.exec(url.hash)
 	if (parse) {
@@ -58,11 +58,9 @@ export function decodeMessageLink(link: string): MessageLinkBreakdown {
 		] = tinybin.unsequence(uint.buffer)
 		return {
 			baseUrl: url.origin + url.pathname,
-			encrypted: {
-				sessionId: toHex(new Uint8Array(binarySessionId)),
-				aesCipherbinary,
-				messageCipherbinary,
-			},
+			sessionId: toHex(new Uint8Array(binarySessionId)),
+			aesCipherbinary,
+			messageCipherbinary,
 		}
 	}
 }

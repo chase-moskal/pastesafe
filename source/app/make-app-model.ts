@@ -21,7 +21,7 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	let state: AppState = {
 		profiles: [],
 		invite: undefined,
-		message: undefined,
+		encrypted: undefined,
 		busy: loading.ready(),
 	}
 
@@ -132,7 +132,7 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 
 	async function hashChange(link: string) {
 		state.invite = decodeInviteLink(link)
-		state.message = decodeMessageLink(link)
+		state.encrypted = decodeMessageLink(link)
 		triggerUpdate()
 	}
 

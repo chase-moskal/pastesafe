@@ -42,10 +42,8 @@ export class PsafeSessionManager extends Component {
 			const baseUrl = location.origin + location.pathname
 			const inviteLink = encodeInviteLink({
 				baseUrl,
-				payload: {
-					sessionId: session.id,
-					sessionPublicKey: session.keys.publicKey,
-				},
+				sessionId: session.id,
+				sessionPublicKey: session.keys.publicKey,
 			})
 			const inviteLinkPreview = inviteLink.slice(0, baseUrl.length + 8 + hintSize) + "..."
 			return html`

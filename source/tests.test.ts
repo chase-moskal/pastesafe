@@ -57,17 +57,17 @@ export default <Suite>{
 
 			const link = encodeMessageLink({
 				baseUrl,
-				encrypted: original,
+				...original,
 			})
 			const decoded = decodeMessageLink(link)
 
-			const aesHex = toHex(new Uint8Array(decoded.encrypted.aesCipherbinary))
-			const messageHex = toHex(new Uint8Array(decoded.encrypted.messageCipherbinary))
+			const aesHex = toHex(new Uint8Array(decoded.aesCipherbinary))
+			const messageHex = toHex(new Uint8Array(decoded.messageCipherbinary))
 			const aesMatch = aesHex === "deadbeef01"
 			const messageMatch = messageHex === "deadbeef02"
 
 			return expect(decoded.baseUrl).equals(baseUrl)
-				&& expect(decoded.encrypted.sessionId).equals(original.sessionId)
+				&& expect(decoded.sessionId).equals(original.sessionId)
 				&& expect(aesMatch).ok()
 				&& expect(messageMatch).ok()
 		},
@@ -95,11 +95,11 @@ export default <Suite>{
 			})
 			const link = encodeMessageLink({
 				baseUrl,
-				encrypted,
+				...encrypted,
 			})
-			const payload = decodeMessageLink(link)
+			const payload2 = decodeMessageLink(link)
 			const message2 = await decryptMessageData({
-				encrypted: payload.encrypted,
+				encrypted: payload2,
 				getPrivateKey: async() => privateKey,
 			})
 			return expect(message).equals(message2)
@@ -111,10 +111,8 @@ export default <Suite>{
 			const {publicKey, privateKey} = await generateSessionKeys()
 			const inviteLink = encodeInviteLink({
 				baseUrl,
-				payload: {
-					sessionId,
-					sessionPublicKey: publicKey,
-				},
+				sessionId,
+				sessionPublicKey: publicKey,
 			})
 			const invite = decodeInviteLink(inviteLink)
 			const message = "abc123"
@@ -124,9 +122,9 @@ export default <Suite>{
 			})
 			const messageLink = encodeMessageLink({
 				baseUrl,
-				encrypted,
+				...encrypted,
 			})
-			const {encrypted: encrypted2} = decodeMessageLink(messageLink)
+			const encrypted2 = decodeMessageLink(messageLink)
 			const message2 = await decryptMessageData({
 				encrypted: encrypted2,
 				getPrivateKey: async id => privateKey,

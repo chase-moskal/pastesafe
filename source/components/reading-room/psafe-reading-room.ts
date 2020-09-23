@@ -33,15 +33,14 @@ export class PsafeReadingRoom extends Component {
 		this.sesh = undefined
 		this.secret = undefined
 		this.error = undefined
-		const {message, querySession} = this.props
-		const {sessionId} = message.encrypted
-		const sesh = querySession(sessionId)
+		const {encrypted, querySession} = this.props
+		const sesh = querySession(encrypted.sessionId)
 		this.sesh = sesh
 		if (sesh) {
 			try {
 				const start = Date.now()
 				this.secret = await decryptMessageData({
-					encrypted: message.encrypted,
+					encrypted,
 					getPrivateKey: async () => sesh.session.keys.privateKey,
 				})
 				const time = Date.now() - start
@@ -55,8 +54,8 @@ export class PsafeReadingRoom extends Component {
 
 	render() {
 		const {props, secret, sesh, error} = this
-		if (!props || !props.message) return html`unknown error`
-		const {sessionId} = props.message.encrypted
+		if (!props || !props.encrypted) return html`unknown error`
+		const {sessionId} = props.encrypted
 
 		const renderSecret = () => html`
 			<div class=secretbox>
