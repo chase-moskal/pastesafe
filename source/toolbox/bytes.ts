@@ -14,14 +14,14 @@ export function fromHex(hex: string): Uint8Array {
 	return new Uint8Array(result)
 }
 
-export function toBase64(bytes: Uint8Array): string {
+export function toBase64url(bytes: Uint8Array): string {
 	return btoa(String.fromCharCode(...bytes))
 		.replace(/=/g, "")
 		.replace(/\+/g, "-")
 		.replace(/\//g, "_")
 }
 
-export function fromBase64(base64: string): Uint8Array {
+export function fromBase64url(base64: string): Uint8Array {
 	return new Uint8Array(
 		Array.from(
 			atob(
