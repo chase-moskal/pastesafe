@@ -12,7 +12,7 @@ import clippyIcon from "../../icons/clippy.svg.js"
 import styles from "./desk.css.js"
 
 const clipboardAnim = 3000
-const clipboardSupport = !!navigator.clipboard.writeText
+const clipboardSupport = !!navigator.clipboard?.writeText
 
  @mixinStyles(styles)
 export class PsafeWritingDesk extends Component {
