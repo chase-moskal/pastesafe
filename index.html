@@ -33,11 +33,11 @@
 					<li>pastesafe packs the secret response into an encrypted link, which only bob can decode</li>
 					<li>alice sends back this new response link, and bob clicks to decode it</li>
 				</ol>
-				<h3>more about pastesafe</h3>
+				<h3>about pastesafe</h3>
 				<ul>
 					<li>100% open source <a target=_blank href="https://github.com/chase-moskal/pastesafe">on github</a> <a class=lowkey target=_blank href="https://github.com/chase-moskal/pastesafe/blob/master/LICENSE">(isc licensed)</a></li>
 					<li>100% serverless clientside webcrypto, keys in localstorage</li>
-					<li>made with ❤️ by <a class=lowkey target=_blank href="https://chasemoskal.com/">chase moskal</a></li>
+					<li><strong class=wipnote>prerelease warning</strong> pastesafe is unstable experimental technology. use at your own risk</li>
 				</ul>
 				<h3>crypto details</h3>
 				<ul>
@@ -46,10 +46,6 @@
 					<li>responses are encrypted with aes-gcm-256, the key for that is encrypted with the rsa public key</li>
 					<li>if you have a copy of the session in your localstorage, you can decrypt the message</li>
 				</ul>
-				<div class=disclaimer>
-					<h3 class=wipnote>alpha warning</h3>
-					<p><strong>use pastesafe at your own risk.</strong> pastesafe is experimental pre-release technology. it has not yet been comprehensively reviewed by security experts. pastesafe cannot guarantee the safety of your data. consider sessions to be temporary because they will permanently break with coming updates</p>
-				</div>
 			</div>
 		</footer>
 	</body>
