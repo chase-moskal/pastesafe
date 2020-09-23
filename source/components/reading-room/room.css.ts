@@ -51,6 +51,10 @@ export default css`
 	animation: spin 1s linear infinite;
 }
 
+.error {
+	color: red;
+}
+
 @keyframes spin {
 	from{
 		transform: rotate3d(0, 1, 0, 0deg);

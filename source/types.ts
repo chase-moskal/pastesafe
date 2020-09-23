@@ -13,7 +13,7 @@ export interface AppState {
 	busy: Busy
 	profiles: Profile[]
 	invite: InviteLinkPayload
-	message: MessageLinkPayload
+	message: MessageLinkBreakdown
 }
 
 export interface AppUpdateListener {
@@ -80,7 +80,7 @@ export interface PsafeWritingDeskProps {
 }
 
 export interface PsafeReadingRoomProps {
-	message: MessageLinkPayload
+	message: MessageLinkBreakdown
 	querySession: (sessionId: string) => {
 		profile: Profile
 		session: Session
@@ -104,8 +104,13 @@ export interface InviteLinkPayload {
 	sessionPublicKey: JsonWebKey
 }
 
-export interface MessageLinkPayload {
+export interface EncryptedMessage {
 	sessionId: string
-	aesCiphertext: string
-	messageCiphertext: string
+	aesCipherbinary: ArrayBuffer
+	messageCipherbinary: ArrayBuffer
+}
+
+export interface MessageLinkBreakdown {
+	baseUrl: string
+	encrypted: EncryptedMessage
 }

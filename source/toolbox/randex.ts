@@ -1,6 +1,7 @@
 
-import {generateId} from "metalshop/dist/toolbox/generate-id.js"
+import {toHex} from "./bytes.js"
 
 export function randex() {
-	return generateId()
+	const randomBytes = crypto.getRandomValues(new Uint8Array(12))
+	return toHex(randomBytes)
 }

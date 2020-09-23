@@ -3,8 +3,8 @@ import {makeDebouncer} from "metalshop/dist/metalfront/toolbox/debouncer.js"
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
 import {PsafeWritingDeskProps} from "../../types.js"
-import {encryptMessageLink, hintSize} from "../../app/links.js"
 import {Component, html, property} from "../../app/component.js"
+import {encryptMessageData, encodeMessageLink} from "../../app/message-links.js"
 
 import lockIcon from "../../icons/lock.svg.js"
 import clippyIcon from "../../icons/clippy.svg.js"
@@ -31,7 +31,7 @@ export class PsafeWritingDesk extends Component {
 		if (!messageLink) return null
 		const {origin, pathname} = new URL(messageLink)
 		const base = origin + pathname
-		return messageLink.slice(0, base.length + 9 + hintSize) + "..."
+		return messageLink.slice(0, base.length + 9 + 7) + "..."
 	}
 
 	private debouncer = makeDebouncer({
@@ -39,10 +39,13 @@ export class PsafeWritingDesk extends Component {
 		action: async() => {
 			const {message} = this
 			const {invite} = this.props
-			this.messageLink = await encryptMessageLink({
-				invite,
-				baseUrl: location.origin + location.pathname,
+			const encrypted = await encryptMessageData({
 				message,
+				invite,
+			})
+			this.messageLink = encodeMessageLink({
+				encrypted,
+				baseUrl: location.origin + location.pathname,
 			})
 		}
 	})
@@ -95,7 +98,7 @@ export class PsafeWritingDesk extends Component {
 					${messageLink ? html`
 						<p class=link>
 							${lockIcon}
-							<a target=_blank href=${messageLink} title="encrpyted message link">
+							<a target=_blank href=${messageLink} title="encrypted message link">
 								${messageLinkPreview}
 							</a>
 						</p>

@@ -1,7 +1,7 @@
 
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
-import {decryptMessageLink} from "../../app/links.js"
+import {decryptMessageData} from "../../app/message-links.js"
 import {Component, html, property} from "../../app/component.js"
 import {PsafeReadingRoomProps, Profile, Session} from "../../types.js"
 
@@ -34,14 +34,14 @@ export class PsafeReadingRoom extends Component {
 		this.secret = undefined
 		this.error = undefined
 		const {message, querySession} = this.props
-		const {sessionId} = message
+		const {sessionId} = message.encrypted
 		const sesh = querySession(sessionId)
 		this.sesh = sesh
 		if (sesh) {
 			try {
 				const start = Date.now()
-				this.secret = await decryptMessageLink({
-					payload: message,
+				this.secret = await decryptMessageData({
+					encrypted: message.encrypted,
 					getPrivateKey: async () => sesh.session.keys.privateKey,
 				})
 				const time = Date.now() - start
@@ -56,7 +56,7 @@ export class PsafeReadingRoom extends Component {
 	render() {
 		const {props, secret, sesh, error} = this
 		if (!props || !props.message) return html`unknown error`
-		const {sessionId} = props.message
+		const {sessionId} = props.message.encrypted
 
 		const renderSecret = () => html`
 			<div class=secretbox>

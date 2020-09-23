@@ -1,15 +1,16 @@
 
+import cloneDeep from "lodash-es/cloneDeep.js"
 import {makeJsonStorage} from "metalshop/dist/toolbox/json-storage.js"
 import * as loading from "metalshop/dist/metalfront/toolbox/loading.js"
 
 import {ProfileDraft, SessionDraft, Profile, AppModelParams, Session, AppState, Busy} from "../types.js"
 
-import {copy} from "../toolbox/copy.js"
 import {hashAny} from "../toolbox/hash.js"
 import {randex} from "../toolbox/randex.js"
 import {generateSessionKeys} from "../toolbox/xcrypto.js"
 
-import {decodeInviteLink, decodeMessageLink, decryptMessageLink} from "./links.js"
+import {decodeInviteLink} from "./links.js"
+import {decodeMessageLink} from "./message-links.js"
 
 export function makeAppModel({storage, onUpdate}: AppModelParams) {
 
@@ -79,7 +80,7 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 		if (changed) {
 			onUpdate({
 				actions,
-				state: Object.freeze(copy(state)),
+				state: Object.freeze(cloneDeep(state)),
 			})
 		}
 	}
