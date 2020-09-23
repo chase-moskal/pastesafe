@@ -1,10 +1,10 @@
 
 import {InviteLink} from "../types.js"
-import * as tinybin from "../toolbox/tinybin.js"
 import {toHex, fromHex} from "../toolbox/bytes.js"
 
+export const sessionIdLength = 24
 export const hintSize = 7
-export const inviteRegex = /^#?inv([\S]+)$/
+export const inviteRegex = /^#?i([\S]+)$/
 
 export function encodeInviteLink({
 		baseUrl,
@@ -12,16 +12,10 @@ export function encodeInviteLink({
 		sessionPublicKey,
 	}: InviteLink): string {
 	if (!baseUrl.endsWith("/")) baseUrl += "/"
-	const binarySessionId = fromHex(sessionId).buffer
-	const binarySessionPublicKey = (new TextEncoder).encode(
-		JSON.stringify(sessionPublicKey)
-	).buffer
-	const binary = tinybin.sequence([
-		binarySessionId,
-		binarySessionPublicKey,
-	])
-	const encoded = toHex(new Uint8Array(binary))
-	return `${baseUrl}#inv${encoded}`
+	const binarySessionPublicKey = (new TextEncoder)
+		.encode(JSON.stringify(sessionPublicKey))
+	const hexKey = toHex(binarySessionPublicKey)
+	return `${baseUrl}#i${sessionId}${hexKey}`
 }
 
 export function decodeInviteLink(link: string): InviteLink {
@@ -29,13 +23,11 @@ export function decodeInviteLink(link: string): InviteLink {
 	const parse = inviteRegex.exec(url.hash)
 	if (parse) {
 		const [,encoded] = parse
-		const bytes = fromHex(encoded).buffer
-		const [
-			binarySessionId,
-			binarySessionPublicKey,
-		] = tinybin.unsequence(bytes)
-		const sessionId = toHex(new Uint8Array(binarySessionId))
-		const sessionPublicKey = JSON.parse((new TextDecoder).decode(binarySessionPublicKey))
+		const sessionId = encoded.slice(0, sessionIdLength)
+		const bytes = fromHex(encoded.slice(sessionIdLength)).buffer
+		const sessionPublicKey = JSON.parse(
+			(new TextDecoder).decode(bytes)
+		)
 		return {
 			baseUrl: url.origin + url.pathname,
 			sessionId,
