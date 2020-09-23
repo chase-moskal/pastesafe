@@ -2,7 +2,7 @@
 import {Suite, expect} from "cynic"
 
 import {EncryptedMessage} from "./types.js"
-import {encodeInviteLink, decodeInviteLink} from "./app/links.js"
+import {encodeInviteLink, decodeInviteLink} from "./app/invite-links.js"
 import {encryptMessageData, encodeMessageLink, decryptMessageData, decodeMessageLink} from "./app/message-links.js"
 
 import {randex} from "./toolbox/randex.js"

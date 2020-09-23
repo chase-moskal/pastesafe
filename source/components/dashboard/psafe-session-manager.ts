@@ -2,7 +2,7 @@
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
 import {formatDate} from "../../toolbox/format-date.js"
-import {encodeInviteLink, hintSize} from "../../app/links.js"
+import {encodeInviteLink, hintSize} from "../../app/invite-links.js"
 import {Component, html, property, repeat} from "../../app/component.js"
 import {Session, SessionDraft, SessionManagerProps} from "../../types.js"
 

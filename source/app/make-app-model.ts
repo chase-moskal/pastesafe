@@ -9,7 +9,7 @@ import {hashAny} from "../toolbox/hash.js"
 import {randex} from "../toolbox/randex.js"
 import {generateSessionKeys} from "../toolbox/xcrypto.js"
 
-import {decodeInviteLink} from "./links.js"
+import {decodeInviteLink} from "./invite-links.js"
 import {decodeMessageLink} from "./message-links.js"
 
 export function makeAppModel({storage, onUpdate}: AppModelParams) {
