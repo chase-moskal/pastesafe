@@ -36,6 +36,34 @@ export const styles = css`
 	flex-direction: row;
 }
 
+.profile_actions {
+	margin: 0.5em auto;
+	margin-left: 1em;
+}
+
+.profile_download {
+	font-weight: bold;
+	border: none;
+	color: inherit;
+	background: transparent;
+}
+
+.profile_download:hover,
+.profile_download:focus {
+	color: white;
+	transform: scale(1.1);
+}
+
+.profile_download > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.profile_download svg {
+	width: 1.2em;
+	height: 1.2em;
+}
+
 .profile_endbuttons {
 	font-size: 1.5em;
 	margin-left: auto;

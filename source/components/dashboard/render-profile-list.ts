@@ -2,6 +2,7 @@
 import {html, repeat} from "../../app/component.js"
 import trashcanIcon from "../../icons/trashcan.svg.js"
 import {formatDate} from "../../toolbox/format-date.js"
+import downloadIcon from "../../icons/desktop-download.svg.js"
 import {Profile, SessionDraft, SessionManagerProps} from "../../types.js"
 
 export function renderProfileList({
@@ -9,11 +10,13 @@ export function renderProfileList({
 		profiles,
 		onClickDeleteSession,
 		onClickDeleteProfile,
+		onClickDownloadProfile,
 		onClickGenerateSession,
 	}: {
 		ready: boolean
 		profiles: Profile[]
 		onClickDeleteProfile: (profileId: string) => void
+		onClickDownloadProfile: (profile: Profile) => void
 		onClickGenerateSession: (draft: SessionDraft) => void
 		onClickDeleteSession: (profileId: string, sessionId: string) => void
 	}) {
@@ -34,6 +37,14 @@ export function renderProfileList({
 								<strong>created</strong>
 								<span>${formatDate(profile.created)}</span>
 							</p>
+							<div class=profile_actions data-iconbuttons>
+								<button
+									class=profile_download
+									@click=${() => onClickDownloadProfile(profile)}>
+										${downloadIcon}
+								</button>
+								<span>download</span>
+							</div>
 						</div>
 						<div class=profile_endbuttons data-iconbuttons>
 							<button

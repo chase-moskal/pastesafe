@@ -6,6 +6,7 @@ import {PsafeDashboardProps, ProfileDraft} from "../../types.js"
 import {Component, html, property} from "../../app/component.js"
 
 import {styles} from "./dashboard-styles.js"
+import {downloadProfile} from "./download-profile.js"
 import {renderButtonBar} from "./render-button-bar.js"
 import {renderProfileList} from "./render-profile-list.js"
 
@@ -45,6 +46,7 @@ export class PsafeDashboard extends Component {
 				onClickDeleteProfile: actions.deleteProfile,
 				onClickDeleteSession: actions.deleteSession,
 				onClickGenerateSession: actions.createSession,
+				onClickDownloadProfile: downloadProfile,
 			})}
 		`
 	}

@@ -69,7 +69,7 @@ svg {
 
 [data-iconbuttons] button:hover,
 [data-iconbuttons] button:focus {
-	transform: scale(1.2);
+	transform: scale(1.1);
 }
 
 [data-iconbuttons] button[data-x]:hover,
@@ -78,7 +78,7 @@ svg {
 }
 
 [data-iconbuttons] svg {
-	display: block;
+	display: inline-block;
 	width: 1em;
 	height: 1em;
 }

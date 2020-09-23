@@ -1,6 +1,7 @@
 
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
+import {formatDate} from "../../toolbox/format-date.js"
 import {decryptMessageData} from "../../app/message-links.js"
 import {Component, html, property} from "../../app/component.js"
 import {PsafeReadingRoomProps, Profile, Session} from "../../types.js"
@@ -79,7 +80,7 @@ export class PsafeReadingRoom extends Component {
 					? html`<h3>${sesh.profile.label}</h3>`
 					: null}
 				<p><strong>profile id</strong> <span>${profile.id}</span></p>
-				<p><strong>profile created</strong> <span>${profile.created}</span></p>
+				<p><strong>profile created</strong> <span>${formatDate(profile.created)}</span></p>
 				<div class=session>
 					<div class=icon>
 						${keyIcon}
@@ -89,7 +90,7 @@ export class PsafeReadingRoom extends Component {
 							? html`<h3>${sesh.session.label}</h3>`
 							: null}
 						<p><strong>session id</strong> <span>${session.id}</span></p>
-						<p><strong>session created</strong> <span>${session.created}</span></p>
+						<p><strong>session created</strong> <span>${formatDate(session.created)}</span></p>
 					</div>
 				</div>
 			</div>
