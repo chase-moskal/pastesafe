@@ -89,7 +89,7 @@ export const styles = css`
 }
 
 .buttonbar button.destroybutton {
-	background: #3b3e10;
+	background: #3d3321;
 	margin-left: auto;
 }
 

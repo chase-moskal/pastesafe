@@ -35,7 +35,7 @@ body {
 	display: inline-block;
 	vertical-align: middle;
 	font-size: 0.4em;
-	padding: 0.2em 0.5em;
+	padding: 0 0.2em;
 }
 
 .sitemain {
@@ -75,11 +75,15 @@ body {
 
 html {
 	font-family: "VT323", sans-serif;
-	color: #b0da6e;
-	background:
-		linear-gradient(-120deg, #496d51ee, #013a0dff),
+	color: #bdcea2;
+	background: 
+		linear-gradient(
+			-120deg, 
+			#747975ee, 
+			#304134
+		),
 		url(https://source.unsplash.com/ALu2B7Vy7ao),
-		#013a0dff;
+		#304134;
 	background-size: cover;
 }
 
