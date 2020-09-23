@@ -76,14 +76,14 @@ body {
 html {
 	font-family: "VT323", sans-serif;
 	color: #bdcea2;
-	background: 
+	background:
 		linear-gradient(
-			-120deg, 
-			#747975ee, 
-			#304134
+			-120deg,
+			#65abb7ee,
+			#2a3655
 		),
 		url(https://source.unsplash.com/ALu2B7Vy7ao),
-		#304134;
+	#304134;
 	background-size: cover;
 }
 
