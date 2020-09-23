@@ -14,24 +14,28 @@ export function fromHex(hex: string): Uint8Array {
 	return new Uint8Array(result)
 }
 
-// export function toBase64(bytes: Uint8Array) {
-// 	const binary = String.fromCharCode.apply(null, bytes)
-// 	return addEqualsPadding(
-// 		btoa(binary)
-// 			.replace(/=/g, "")
-// 			.replace(/\+/g, "-")
-// 			.replace(/\//g, "_")
-// 	)
-// }
+export function toBase64(bytes: Uint8Array): string {
+	return btoa(String.fromCharCode(...bytes))
+		.replace(/=/g, "")
+		.replace(/\+/g, "-")
+		.replace(/\//g, "_")
+}
 
-// export function fromBase64(base64: string): Uint8Array {
-// 	return (new TextEncoder).encode(atob(
-// 		base64
-// 			.replace(/-/g, "+")
-// 			.replace(/_/g, "/")
-// 	))
-// }
+export function fromBase64(base64: string): Uint8Array {
+	return new Uint8Array(
+		Array.from(
+			atob(
+				addEqualsPadding(
+					base64
+						.replace(/-/g, "+")
+						.replace(/_/g, "/")
+				)
+			)
+		)
+		.map(character => character.charCodeAt(0))
+	)
+}
 
-// function addEqualsPadding(base64: string) {
-// 	return base64 + Array((4 - base64.length % 4) % 4 + 1).join("=")
-// }
+function addEqualsPadding(base64: string) {
+	return base64 + Array((4 - base64.length % 4) % 4 + 1).join("=")
+}

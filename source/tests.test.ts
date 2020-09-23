@@ -7,8 +7,8 @@ import {encryptMessageData, encodeMessageLink, decryptMessageData, decodeMessage
 
 import {randex} from "./toolbox/randex.js"
 import * as tinybin from "./toolbox/tinybin.js"
-import {toHex, fromHex} from "./toolbox/bytes.js"
 import {generateSessionKeys} from "./toolbox/xcrypto.js"
+import {toHex, fromHex, toBase64, fromBase64} from "./toolbox/bytes.js"
 
 const baseUrl = "https://pastesafe.org/"
 
@@ -19,6 +19,13 @@ export default <Suite>{
 			const hex = toHex(new Uint8Array(buffer))
 			return expect(hex).equals(
 				toHex(fromHex(hex))
+			)
+		},
+		"base64 back-and-forth works": async() => {
+			const {buffer} = crypto.getRandomValues(new Uint8Array(8))
+			const base64 = toBase64(new Uint8Array(buffer))
+			return expect(base64).equals(
+				toBase64(fromBase64(base64))
 			)
 		},
 	},
