@@ -89,13 +89,10 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 	// save/load state from storage
 	//
 
-	const broadcast = new BroadcastChannel("pastesafe_events")
 	const jsonStore = makeJsonStorage(storage)
-	const changeMessage = "PASTESAFE_CHANGE"
 
 	function save() {
 		jsonStore.write("pastesafe_profiles", state.profiles)
-		broadcast.postMessage(changeMessage)
 	}
 
 	function load() {
@@ -107,15 +104,11 @@ export function makeAppModel({storage, onUpdate}: AppModelParams) {
 		triggerUpdate()
 	}
 
-	broadcast.onmessage = (event: MessageEvent) => {
-		if (event.data === changeMessage) {
+	window.addEventListener("storage", (event: StorageEvent) => {
+		if (event.storageArea === window.localStorage) {
 			refresh()
 		}
-	}
-
-	//
-	// wire actions to save state and trigger update
-	//
+	})
 
 	for (const [key, action] of Object.entries(actions)) {
 		actions[key] = async(...args: any[]) => {
