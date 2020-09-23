@@ -8,7 +8,7 @@ import {encryptMessageData, encodeMessageLink, decryptMessageData, decodeMessage
 import {randex} from "./toolbox/randex.js"
 import * as tinybin from "./toolbox/tinybin.js"
 import {generateSessionKeys} from "./toolbox/xcrypto.js"
-import {toHex, fromHex, toBase64url, fromBase64url} from "./toolbox/bytes.js"
+import {encodeHex, decodeHex, encodeBase64url, decodeBase64url} from "./toolbox/bytes.js"
 
 const baseUrl = "https://pastesafe.org/"
 
@@ -16,16 +16,16 @@ export default <Suite>{
 	"byte utils": {
 		"hex back-and-forth": async() => {
 			const {buffer} = crypto.getRandomValues(new Uint8Array(8))
-			const hex = toHex(new Uint8Array(buffer))
+			const hex = encodeHex(new Uint8Array(buffer))
 			return expect(hex).equals(
-				toHex(fromHex(hex))
+				encodeHex(decodeHex(hex))
 			)
 		},
 		"base64 back-and-forth works": async() => {
 			const {buffer} = crypto.getRandomValues(new Uint8Array(8))
-			const base64 = toBase64url(new Uint8Array(buffer))
+			const base64 = encodeBase64url(new Uint8Array(buffer))
 			return expect(base64).equals(
-				toBase64url(fromBase64url(base64))
+				encodeBase64url(decodeBase64url(base64))
 			)
 		},
 	},
@@ -47,7 +47,7 @@ export default <Suite>{
 				after4,
 			] = tinybin.unsequence(buffer)
 
-			const h = (buffer: ArrayBuffer) => toHex(new Uint8Array(buffer))
+			const h = (buffer: ArrayBuffer) => encodeHex(new Uint8Array(buffer))
 			return expect(h(after1)).equals(h(before1))
 				&& expect(h(after2)).equals(h(before2))
 				&& expect(h(after3)).equals(h(before1))
@@ -58,8 +58,8 @@ export default <Suite>{
 		"encode and decode": async() => {
 			const original: EncryptedMessage = {
 				sessionId: "a123",
-				aesCipherbinary: fromHex("deadbeef01").buffer,
-				messageCipherbinary: fromHex("deadbeef02").buffer,
+				aesCipherbinary: decodeHex("deadbeef01").buffer,
+				messageCipherbinary: decodeHex("deadbeef02").buffer,
 			}
 
 			const link = encodeMessageLink({
@@ -68,8 +68,8 @@ export default <Suite>{
 			})
 			const decoded = decodeMessageLink(link)
 
-			const aesHex = toHex(new Uint8Array(decoded.aesCipherbinary))
-			const messageHex = toHex(new Uint8Array(decoded.messageCipherbinary))
+			const aesHex = encodeHex(new Uint8Array(decoded.aesCipherbinary))
+			const messageHex = encodeHex(new Uint8Array(decoded.messageCipherbinary))
 			const aesMatch = aesHex === "deadbeef01"
 			const messageMatch = messageHex === "deadbeef02"
 

@@ -1,11 +1,11 @@
 
 import * as tinybin from "../toolbox/tinybin.js"
-import {toHex, fromHex} from "../toolbox/bytes.js"
+import {encode, decode} from "./portable-binary.js"
 import {encryptMessage, decryptMessage} from "../toolbox/xcrypto.js"
 import {InvitePayload, EncryptedMessage, MessageLink} from "../types.js"
 
 export const messagePrefix = "m"
-export const messageRegex = /^#?m([\S]+)$/
+export const messageRegex = /^#?m(.+)$/
 
 export async function encryptMessageData({message, invite}: {
 		message: string
@@ -33,7 +33,7 @@ export function encodeMessageLink({
 	}: MessageLink): string {
 	if (!baseUrl.endsWith("/")) baseUrl += "/"
 
-	const binarySessionId = fromHex(sessionId).buffer
+	const binarySessionId = decode(sessionId).buffer
 
 	const randomByte = crypto.getRandomValues(new Uint8Array(1))[0]
 	const randomSize = Math.floor((randomByte / 8) + 1)
@@ -46,7 +46,7 @@ export function encodeMessageLink({
 		binarySessionId,
 	])
 
-	const encoded = toHex(new Uint8Array(binary))
+	const encoded = encode(new Uint8Array(binary))
 	return `${baseUrl}#${messagePrefix}${encoded}`
 }
 
@@ -55,7 +55,7 @@ export function decodeMessageLink(link: string): MessageLink {
 	const parse = messageRegex.exec(url.hash)
 	if (parse) {
 		const [,encoded] = parse
-		const uint = fromHex(encoded)
+		const uint = decode(encoded)
 		const [
 			randomBuffer,
 			messageCipherbinary,
@@ -64,7 +64,7 @@ export function decodeMessageLink(link: string): MessageLink {
 		] = tinybin.unsequence(uint.buffer)
 		return {
 			baseUrl: url.origin + url.pathname,
-			sessionId: toHex(new Uint8Array(binarySessionId)),
+			sessionId: encode(new Uint8Array(binarySessionId)),
 			aesCipherbinary,
 			messageCipherbinary,
 		}

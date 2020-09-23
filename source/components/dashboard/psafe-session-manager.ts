@@ -2,7 +2,7 @@
 import {mixinStyles} from "metalshop/dist/metalfront/framework/mixin-styles.js"
 
 import {formatDate} from "../../toolbox/format-date.js"
-import {encodeInviteLink, hintSize} from "../../app/invite-links.js"
+import {encodeInviteLink} from "../../app/invite-links.js"
 import {Component, html, property, repeat} from "../../app/component.js"
 import {Session, SessionDraft, SessionManagerProps} from "../../types.js"
 
@@ -45,7 +45,7 @@ export class PsafeSessionManager extends Component {
 				sessionId: session.id,
 				sessionPublicKey: session.keys.publicKey,
 			})
-			const inviteLinkPreview = inviteLink.slice(0, baseUrl.length + 8 + hintSize) + "..."
+			const inviteLinkPreview = inviteLink.slice(0, baseUrl.length + 8) + "..."
 			return html`
 				<div class=session>
 					<div class=session-icon>

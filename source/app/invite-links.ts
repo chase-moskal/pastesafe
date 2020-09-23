@@ -1,10 +1,11 @@
 
 import {InviteLink} from "../types.js"
-import {toHex, fromHex} from "../toolbox/bytes.js"
+import {randex} from "../toolbox/randex.js"
+import {encode, decode} from "./portable-binary.js"
 
-export const sessionIdLength = 24
-export const hintSize = 7
-export const inviteRegex = /^#?i([\S]+)$/
+export const messagePrefix = "i"
+export const inviteRegex = /^#?i(.+)$/
+export const sessionIdLength = randex().length
 
 export function encodeInviteLink({
 		baseUrl,
@@ -14,7 +15,7 @@ export function encodeInviteLink({
 	if (!baseUrl.endsWith("/")) baseUrl += "/"
 	const binarySessionPublicKey = (new TextEncoder)
 		.encode(JSON.stringify(sessionPublicKey))
-	const hexKey = toHex(binarySessionPublicKey)
+	const hexKey = encode(binarySessionPublicKey)
 	return `${baseUrl}#i${sessionId}${hexKey}`
 }
 
@@ -24,7 +25,7 @@ export function decodeInviteLink(link: string): InviteLink {
 	if (parse) {
 		const [,encoded] = parse
 		const sessionId = encoded.slice(0, sessionIdLength)
-		const bytes = fromHex(encoded.slice(sessionIdLength)).buffer
+		const bytes = decode(encoded.slice(sessionIdLength)).buffer
 		const sessionPublicKey = JSON.parse(
 			(new TextDecoder).decode(bytes)
 		)
