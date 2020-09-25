@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"name": "pastesafe",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "web crypto app",
 	"license": "ISC",
 	"author": "Chase Moskal <chasemoskal@gmail.com>",
