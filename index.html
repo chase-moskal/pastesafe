@@ -26,28 +26,21 @@
 		<footer class=sitefooter>
 			<div class=stdcontent>
 				<h2>pastesafe helps people share secrets</h2>
-				<p>pastesafe is a free public-key crpyto app that empowers anybody to communicate privately over any untrusted public forum — simply by exchanging links packed with encrypted messages</p>
-				<p>pastesafe might be handy if you need somebody to send you a password or something like that</p>
-				<p>pastesafe works best in <strong>google chrome</strong>, and doesn't work on some phones</p>
+				<p>people use pastesafe to encrypt secret messages into links which they can share publicly, but only the intended recipient can decrypt the messages</p>
+				<p>pastesafe is technically an rsa+aes hybrid cryptosystem, which can be handy if you need somebody to send you sensitive information like a password or something like that</p>
+				<p>all pastesafe links are public. there are two types of pastesafe link. an <em>invite link</em> allows anybody who clicks it to encrypt a message and send it back as a <em>message link</em>, which can only be decrypted by the invite creator</p>
 				<h3>all pastesafe communications are initiated by an invite link</h3>
 				<ol>
-					<li>bob wants to receive secret info from alice. so, bob creates a pastesafe session and sends her the invite link</li>
-					<li>alice clicks the invite link, and is prompted to enter her secret info for bob</li>
-					<li>pastesafe packs the secret response into an encrypted link, which only bob can decode</li>
-					<li>alice sends back this new response link, and bob clicks to decode it</li>
+					<li>bob wants to receive secret messages from alice. so, bob creates a pastesafe session and sends her the invite link</li>
+					<li>alice clicks the invite link, and is prompted to enter a secret message</li>
+					<li>pastesafe automatically encrypts alice's secret message into an encrypted <em>message link</em>. only bob has the key to decrypt it</li>
+					<li>alice sends the message link to bob, who clicks to decrypt it</li>
 				</ol>
 				<h3>about pastesafe</h3>
 				<ul>
 					<li>100% open source <a target=_blank href="https://github.com/chase-moskal/pastesafe">on github</a> <a class=lowkey target=_blank href="https://github.com/chase-moskal/pastesafe/blob/master/LICENSE">(isc licensed)</a></li>
-					<li>100% serverless clientside webcrypto, keys in localstorage</li>
+					<li>100% serverless clientside webcrypto with keys in localstorage</li>
 					<li><strong class=wipnote>warning</strong> pastesafe is experimental pre-release technology. use at your own risk</li>
-				</ul>
-				<h3>crypto details</h3>
-				<ul>
-					<li>each session on your pastesafe dashboard represents an rsa keypair you have loaded in your browser's localstorage. if you delete them, they're gone forever. don't clear your cookies because you'll loose your sessions permanently</li>
-					<li>the invite link contains the session-id and the public-key</li>
-					<li>responses are encrypted with aes-gcm-256, the key for that is encrypted with the rsa public key</li>
-					<li>if you have a copy of the session in your localstorage, you can decrypt the message</li>
 				</ul>
 			</div>
 		</footer>
